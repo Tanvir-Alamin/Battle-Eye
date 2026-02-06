@@ -7,6 +7,8 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 import { IoSkullOutline } from "react-icons/io5";
 import { GiBurningSkull, GiSkullBolt } from "react-icons/gi";
+import axios from "axios";
+import { imageUpload } from "../../Utils";
 
 const Register = () => {
   const [eye, setEye] = useState(false);
@@ -20,19 +22,22 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { email, password, name, photoURL } = data;
-    console.log(photoURL);
+    const image = photoURL[0];
+    const useImage = await imageUpload(image);
+    console.log(useImage);
 
     userWithEmail(email, password)
       .then((result) => {
-        updateProfile(result.user, { displayName: name, photoURL: photoURL });
+        updateProfile(result.user, { displayName: name, photoURL: useImage });
 
         Swal.fire({
           title: `Account Created Successfully`,
           text: `Thanks for signing up`,
           icon: "success",
         });
+        console.log(result);
 
         setUser(result.user);
         data.target.reset();

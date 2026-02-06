@@ -1,0 +1,121 @@
+[
+  {
+    "contestName": "PUBG Mobile",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/JWf8S1hp/pubg.jpg",
+    "participants": 124,
+    "entryFee": 12,
+    "prizeMoney": 1500,
+    "mode": "Online – Squad Battle Royale",
+    "description": "The PUBG Mobile Global Squad Championship is a fully professional level esports tournament created for highly competitive mobile gamers. This contest follows real international tournament standards with structured lobbies, official scoring systems, and professional match administration. Registered squads will battle across multiple classic maps including Erangel, Miramar and Sanhok. Every match will be monitored by tournament admins to ensure fair play and zero cheating. This event is designed to give players a true esports experience with organized scheduling, live results and premium prize rewards.",
+    "taskDetails": "Create a squad of 4 players. Play 3 official matches. Ranking based on survival time and total kills."
+  },
+
+  {
+    "contestName": "Valorant",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/0pPWX4Tb/valorent-Banner.jpg",
+    "participants": 76,
+    "entryFee": 18,
+    "prizeMoney": 2000,
+    "mode": "Online – 5v5 Tactical FPS",
+    "description": "Valorant Pro League Showdown is a premium esports tournament built exactly like real professional Valorant competitions. Teams will compete in private lobbies using official competitive rules, map veto systems and knockout brackets. Each match will be supervised by referees to maintain competitive integrity. The tournament is targeted toward serious teams who want to test their strategies, communication and mechanical skills. Winners will receive high prize money and recognition as top tier Valorant competitors.",
+    "taskDetails": "Form a team of 5 players. Compete in knockout format. Standard competitive Valorant rules applied."
+  },
+
+  {
+    "contestName": "Free Fire",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/6cJVTWyk/free-Fire.jpg",
+    "participants": 210,
+    "entryFee": 6,
+    "prizeMoney": 900,
+    "mode": "Online – Solo Battle Royale",
+    "description": "The Ultimate Survival Cup is a high quality Free Fire esports competition designed to find the best individual players. This contest runs with official tournament style scoring where every action matters including kills, survival time and placement. The environment is professionally managed with secure rooms and strict anti-cheat policies. Players must show real skill, game sense and decision making ability to win this contest. It is perfect for competitive Free Fire players who want to prove themselves on a big stage.",
+    "taskDetails": "Solo players only. Play 4 rounds. Highest cumulative score wins the contest."
+  },
+
+  {
+    "contestName": "CS2",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/1tgCKj3n/cs2.jpg",
+    "participants": 32,
+    "entryFee": 25,
+    "prizeMoney": 3000,
+    "mode": "Offline – LAN Tournament",
+    "description": "CS2 National LAN Masters is an offline professional Counter Strike 2 tournament organized in real arena style. Teams will compete face to face using high performance gaming setups and official competitive rules. The event includes referees, live observers and professional tournament management just like real international CS tournaments. This contest is meant only for serious and dedicated CS2 teams who want real esports experience. Strategy, teamwork and mechanical skills will decide the true champions.",
+    "taskDetails": "5v5 team tournament. Best of 3 matches. International competitive map pool."
+  },
+
+  {
+    "contestName": "DOTA 2",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/SwbSPjC7/dota2.jpg",
+    "participants": 58,
+    "entryFee": 20,
+    "prizeMoney": 2800,
+    "mode": "Online – MOBA 5v5",
+    "description": "DOTA 2 Elite Battle League is a serious competition for advanced MOBA players who understand high level strategies and teamwork. The tournament follows real esports structure with hero drafts, bans, and official match rules. Teams will battle in organized brackets with professional monitoring and result tracking. This contest aims to deliver a true international style DOTA experience to rising competitive squads. Only teams with strong coordination and deep game knowledge will succeed.",
+    "taskDetails": "5 player teams. Double elimination bracket. Standard competitive DOTA 2 rules."
+  },
+
+  {
+    "contestName": "FIFA",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/7tycjK6z/fc.jpg",
+    "participants": 89,
+    "entryFee": 8,
+    "prizeMoney": 700,
+    "mode": "Online – 1v1 Sports Esports",
+    "description": "FIFA Champions Online Cup is a premium tournament for football gaming lovers. This contest is structured like real FIFA esports events where individual players fight through knockout rounds. All matches are played using official competitive settings to ensure fairness and realism. Players can represent their favorite clubs and use tactical skills to defeat opponents. It is an ideal platform for skilled FIFA players who dream of professional level competition.",
+    "taskDetails": "1v1 matches, knockout rounds, standard FIFA competitive settings."
+  },
+
+  {
+    "contestName": "Call of Duty",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/hRWQb9Nz/cod-Banner.jpg",
+    "participants": 140,
+    "entryFee": 14,
+    "prizeMoney": 1600,
+    "mode": "Online – Squad FPS",
+    "description": "This tournament is created for serious Call of Duty Mobile squads who want to experience real esports competition. Matches will be played in custom rooms with official rules and professional supervision. The event focuses on teamwork, strategy and fast paced action. Every team will get a chance to prove their dominance in a structured competitive environment. It is a perfect opportunity for COD Mobile players to participate in high quality organized scrims.",
+    "taskDetails": "Squad based matches with official COD Mobile competitive settings."
+  },
+
+  {
+    "contestName": "Apex Legends",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/99y7nD36/apex-Legend.jpg",
+    "participants": 67,
+    "entryFee": 16,
+    "prizeMoney": 1900,
+    "mode": "Online – Trio Battle Royale",
+    "description": "Apex Legends Trio Battle Arena is a professional style tournament designed for skilled trios. The contest follows official battle royale scoring systems where survival, kills and team coordination are equally important. Multiple rounds will be played in a structured format with live result updates. This event gives players a true competitive atmosphere similar to international Apex tournaments. Only the most consistent and tactical teams will reach the top positions.",
+    "taskDetails": "Teams of 3 players. Multiple matches with point based ranking system."
+  },
+
+  {
+    "contestName": "Fortnite",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/6RnS05y6/Fortnite.jpg",
+    "participants": 175,
+    "entryFee": 10,
+    "prizeMoney": 1100,
+    "mode": "Online – Solo / Duo Battle Royale",
+    "description": "Fortnite Pro Builders Championship is an advanced level contest for players who master building mechanics and survival tactics. The tournament is organized like real Fortnite esports events with multiple rounds and professional point calculation. Players must show creativity, speed and combat intelligence to win. This competition is perfect for both solo and duo players who want to test themselves against other high level Fortnite competitors.",
+    "taskDetails": "Solo or Duo format. Multiple rounds with elimination scoring."
+  },
+
+  {
+    "contestName": "Mobile Legends",
+    "email": "tanviralamin221@gmail.com",
+    "bannerImage": "https://i.ibb.co/xKL1D1PS/mobile-Legend.jpg",
+    "participants": 92,
+    "entryFee": 11,
+    "prizeMoney": 1300,
+    "mode": "Online – MOBA 5v5",
+    "description": "MLBB Squad Masters is a professional style Mobile Legends tournament created for serious competitive teams. The contest follows official draft pick rules, hero bans and structured brackets just like international MLBB events. Teams will battle in intense 5v5 matches where strategy, hero synergy and teamwork are the keys to victory. This tournament provides a real esports environment for MLBB players to showcase their skills and climb toward championship glory.",
+    "taskDetails": "5v5 teams, knockout bracket, official MLBB competitive format."
+  }
+]

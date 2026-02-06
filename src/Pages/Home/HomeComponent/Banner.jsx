@@ -9,7 +9,7 @@ const Banner = () => {
     <div className="relative">
       <img
         className="rounded-4xl  w-6xl mx-auto"
-        src="https://i.ibb.co/yn04r5mS/valeront.webp"
+        src="https://i.ibb.co/5x1g0BXC/banner-Velorent.jpg"
         alt=""
       />
       <div className="flex absolute  inset-0 justify-center  items-center gap-2">
