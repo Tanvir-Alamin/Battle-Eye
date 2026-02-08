@@ -1,21 +1,48 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useForm, Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../Context/AuthContext";
 import { imageUpload } from "../../Utils";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import Loader from "../../Shared/Loader";
 
 const AddContest = () => {
+  const [uploading, setUploading] = useState(false);
+
   const { user } = useContext(AuthContext);
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (addContest) =>
+      await axios.post("http://localhost:3000/all-contests", addContest),
+    onSuccess: () => {
+      Swal.fire({
+        title: "Your Contest Successfully Added",
+        icon: "success",
+        draggable: true,
+      });
+    },
+    onError: (data) => {
+      console.log(data);
+    },
+
+    retry: 2,
+  });
+
   const {
     register,
     handleSubmit,
     control,
+    reset,
 
     formState: { errors },
   } = useForm();
+  if (uploading || isPending) return <Loader />;
 
   const onSubmit = async (data) => {
+    setUploading(true);
     const {
       contestName,
       gameImage,
@@ -39,16 +66,14 @@ const AddContest = () => {
       date,
       image: user?.photoURL,
     };
-    fetch("http://localhost:3000/all-contests", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(contestData),
-    }).then();
-    console.table(contestData);
+    try {
+      await mutateAsync(contestData);
+      reset();
+      setUploading(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   return (
     <div className="max-w-6xl   mx-auto p-6">
       <div className="text-center">

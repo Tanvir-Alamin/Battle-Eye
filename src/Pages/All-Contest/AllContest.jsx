@@ -26,7 +26,7 @@ const AllContest = () => {
       <div className="text-3xl mt-10  flex justify-center">All Contest</div>
       <div className="grid mt-10 place-items-center grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
         {contests.map((res) => (
-          <CardStyle res={res}></CardStyle>
+          <CardStyle key={res._id} res={res}></CardStyle>
         ))}
       </div>
     </div>
