@@ -3,7 +3,13 @@ import React from "react";
 const Loader = () => {
   return (
     <div className=" flex flex-col h-screen items-center justify-center">
-      <span class="loader"></span>
+      {/* <span class="loader"></span> */}
+      <div>
+        <div class="textWrapper">
+          <p class="text">Loading...</p>
+          <div class="invertbox"></div>
+        </div>
+      </div>
     </div>
   );
 };

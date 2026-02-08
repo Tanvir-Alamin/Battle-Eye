@@ -7,7 +7,6 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 import { IoSkullOutline } from "react-icons/io5";
 import { GiBurningSkull, GiSkullBolt } from "react-icons/gi";
-import axios from "axios";
 import { imageUpload } from "../../Utils";
 
 const Register = () => {

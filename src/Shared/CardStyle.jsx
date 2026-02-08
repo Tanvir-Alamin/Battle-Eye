@@ -3,7 +3,6 @@ import { NavLink } from "react-router";
 
 const CardStyle = (data) => {
   const contest = data.res;
-  console.log(data);
 
   return (
     <div className="card w-75 md:w-90 border-2 border-gray-600 md:h-full  hover:scale-102 transform transition-all duration-300 ease-in-out bg-base-100 shadow-lg">

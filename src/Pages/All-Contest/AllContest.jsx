@@ -1,13 +1,13 @@
-import React from "react";
-import { useLoaderData } from "react-router";
+import React, { useContext } from "react";
 import CardStyle from "../../Shared/CardStyle";
+import Loader from "../../Shared/Loader";
+import { AuthContext } from "../../Context/AuthContext";
 
 const AllContest = () => {
-  const contests = useLoaderData();
-  const allContest = contests.data;
+  const { contests } = useContext(AuthContext);
 
   return (
-    <div>
+    <div className="mb-10">
       <div className="relative">
         <img
           className="w-full h-100 object-cover rounded-xl brightness-65 blur-[0.5px] shadow-2xl shadow-black/60"
@@ -25,7 +25,7 @@ const AllContest = () => {
       </div>
       <div className="text-3xl mt-10  flex justify-center">All Contest</div>
       <div className="grid mt-10 place-items-center grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-        {allContest.map((res) => (
+        {contests.map((res) => (
           <CardStyle res={res}></CardStyle>
         ))}
       </div>

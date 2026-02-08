@@ -9,8 +9,10 @@ import {
 } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
 import { AuthContext } from "./AuthContext";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
+  const [contests, setContests] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
@@ -34,6 +36,18 @@ const AuthProvider = ({ children }) => {
 
     return () => getUser();
   }, []);
+
+  useEffect(() => {
+    axios("http://localhost:3000/all-contests")
+      .then((res) => {
+        setContests(res.data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   const authInfo = {
     google,
     user,
@@ -43,6 +57,7 @@ const AuthProvider = ({ children }) => {
     mailLogIn,
     loading,
     setLoading,
+    contests,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };

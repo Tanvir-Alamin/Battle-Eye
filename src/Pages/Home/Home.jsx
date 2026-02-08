@@ -1,15 +1,17 @@
 import React from "react";
 import Banner from "./HomeComponent/Banner";
 import CardStyle from "../../Shared/CardStyle";
-import { useLoaderData } from "react-router";
 import PopularContest from "./HomeComponent/PopularContest";
+import { AuthContext } from "../../Context/AuthContext";
+import AddContest from "../AddContest/AddContest";
+import Loader from "../../Shared/Loader";
 
 const Home = () => {
-  const contests = useLoaderData();
   return (
     <div className="">
       <Banner></Banner>
-      <PopularContest contests={contests}></PopularContest>
+      <PopularContest></PopularContest>
+      <AddContest></AddContest>
     </div>
   );
 };
