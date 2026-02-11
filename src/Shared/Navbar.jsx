@@ -90,7 +90,7 @@ const Navbar = () => {
           </div>
           <Link to="/home" className="btn py-6 btn-ghost text-xl">
             <img className="w-15 rounded-xl" src="/logo.png" alt="" />
-            BATTLE EYE
+            BATTLE <span className="text-[#7b1fa2]">EYE</span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

@@ -6,6 +6,7 @@ import Register from "../Pages/Registration/Register";
 import AllContest from "../Pages/All-Contest/AllContest";
 import DashBoardLayOut from "../Layouts/DashBoardLayOut";
 import AddContest from "../Pages/AddContest/AddContest";
+import Details from "../Pages/All-Contest/Details-Contest/Details";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>,
+      },
+      {
+        path: "/details/:id",
+        element: <Details></Details>,
       },
     ],
   },

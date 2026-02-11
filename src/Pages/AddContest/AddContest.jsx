@@ -8,11 +8,13 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import Loader from "../../Shared/Loader";
+import { User } from "lucide-react";
 
 const AddContest = () => {
   const [uploading, setUploading] = useState(false);
 
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (addContest) =>
@@ -64,6 +66,7 @@ const AddContest = () => {
       description,
       email,
       date,
+      creator: user?.displayName,
       image: user?.photoURL,
     };
     try {

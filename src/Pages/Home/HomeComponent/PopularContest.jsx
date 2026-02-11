@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import CardStyle from "../../../Shared/CardStyle";
 import { Link } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext";
 
-const PopularContest = () => {
-  const { contests } = useContext(AuthContext);
-
-  const contest = contests;
+const PopularContest = ({ data }) => {
+  const contest = data;
   const sortData = contest
     .sort((a, b) => b.participants - a.participants)
     .slice(0, 6);
@@ -15,7 +13,7 @@ const PopularContest = () => {
     <div>
       <div className="text-3xl mt-10  flex justify-center">Popular Contest</div>
       <div className="grid mt-10 place-items-center grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-        {sortData.map((res) => (
+        {sortData?.map((res) => (
           <CardStyle res={res}></CardStyle>
         ))}
       </div>

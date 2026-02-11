@@ -1,10 +1,19 @@
-import React, { useContext } from "react";
+import React from "react";
 import CardStyle from "../../Shared/CardStyle";
 import Loader from "../../Shared/Loader";
 import { AuthContext } from "../../Context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AllContest = () => {
-  const { contests } = useContext(AuthContext);
+  const { data, isLoading } = useQuery({
+    queryKey: ["contests"],
+    queryFn: async () => {
+      const result = await axios("http://localhost:3000/all-contests");
+      return result.data;
+    },
+  });
+  if (isLoading || !data) return <Loader></Loader>;
 
   return (
     <div className="mb-10">
@@ -24,8 +33,8 @@ const AllContest = () => {
         </div>
       </div>
       <div className="text-3xl mt-10  flex justify-center">All Contest</div>
-      <div className="grid mt-10 place-items-center grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-        {contests.map((res) => (
+      <div className="grid mt-10 mx-7 place-items-center grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-6">
+        {data?.map((res) => (
           <CardStyle key={res._id} res={res}></CardStyle>
         ))}
       </div>
