@@ -35,6 +35,8 @@ const Details = () => {
       "http://localhost:3000/payment-checkout-session",
       paymentInfo,
     );
+    window.location.replace(result.data.url);
+
     console.log(result);
   };
   return (

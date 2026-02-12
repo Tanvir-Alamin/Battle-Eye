@@ -7,6 +7,7 @@ import AllContest from "../Pages/All-Contest/AllContest";
 import DashBoardLayOut from "../Layouts/DashBoardLayOut";
 import AddContest from "../Pages/AddContest/AddContest";
 import Details from "../Pages/All-Contest/Details-Contest/Details";
+import Success from "../Pages/Payment/Success";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <Details></Details>,
+      },
+      {
+        path: "/payment-success",
+        element: <Success></Success>,
       },
     ],
   },
