@@ -7,12 +7,12 @@ const PopularContest = ({ data }) => {
   const contest = data;
   const sortData = contest
     .sort((a, b) => b.participants - a.participants)
-    .slice(0, 6);
+    .slice(0, 4);
 
   return (
     <div>
       <div className="text-3xl mt-10  flex justify-center">Popular Contest</div>
-      <div className="grid mt-10 place-items-center grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
+      <div className="grid mt-10 mx-7 place-items-center grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-6">
         {sortData?.map((res) => (
           <CardStyle res={res}></CardStyle>
         ))}

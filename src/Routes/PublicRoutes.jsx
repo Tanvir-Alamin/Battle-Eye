@@ -8,6 +8,8 @@ import DashBoardLayOut from "../Layouts/DashBoardLayOut";
 import AddContest from "../Pages/AddContest/AddContest";
 import Details from "../Pages/All-Contest/Details-Contest/Details";
 import Success from "../Pages/Payment/Success";
+import ParticipatedContests from "../Pages/ParticipatedContests/ParticipatedContests";
+import ManageContest from "../Pages/Manage-Contest/ManageContest";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/add-contest",
         Component: AddContest,
+      },
+      {
+        path: "/dashboard/participated-contests",
+        Component: ParticipatedContests,
+      },
+      {
+        path: "/dashboard/manage-contests",
+        Component: ManageContest,
       },
     ],
   },

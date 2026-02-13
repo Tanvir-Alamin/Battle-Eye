@@ -28,16 +28,15 @@ const Details = () => {
       entryFee: data.entryFee,
       image: data.bannerImage,
       buyerMail: user.email,
-      buyer: user.displayName,
+      buyerName: user.displayName,
       owner: data.creator,
     };
+    5;
     const result = await axios.post(
       "http://localhost:3000/payment-checkout-session",
       paymentInfo,
     );
     window.location.replace(result.data.url);
-
-    console.log(result);
   };
   return (
     <div className="my-20">
