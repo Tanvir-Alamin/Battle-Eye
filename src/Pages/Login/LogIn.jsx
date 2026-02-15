@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 import { GiBurningSkull } from "react-icons/gi";
+import { saveOrUpdateUser } from "../../Utils";
 
 const LogIn = () => {
   const location = useLocation();
@@ -13,11 +14,18 @@ const LogIn = () => {
   const locate = address || "/home";
 
   const navigate = useNavigate();
-  const { google, setUser, mailLogIn } = useContext(AuthContext);
+  const { google, user, setUser, mailLogIn } = useContext(AuthContext);
   const [eye, setEye] = useState(false);
-  const submitGoogle = (e) => {
+  const submitGoogle = async (e) => {
     e.preventDefault();
-    google()
+    const { user } = await google();
+    console.log(user);
+
+    await saveOrUpdateUser({
+      name: user?.displayName,
+      email: user?.email,
+      image: user?.photoURL,
+    })
       .then((result) => {
         Swal.fire({
           title: `Login Successfully`,
@@ -37,11 +45,17 @@ const LogIn = () => {
   } = useForm();
   console.log(errors);
 
-  const loginHandle = (data) => {
+  const loginHandle = async (data) => {
     const { email, password } = data;
 
     mailLogIn(email, password)
       .then((result) => {
+        saveOrUpdateUser({
+          name: user?.displayName,
+          email: user?.email,
+          image: user?.photoURL,
+        });
+
         Swal.fire({
           title: `Login Successfully`,
           text: `Welcome Back`,
@@ -51,9 +65,15 @@ const LogIn = () => {
         data.target.reset();
         setUser(result.user);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(
+        (error) => console.log(error),
+
+        Swal.fire({
+          title: "Error!",
+          text: "Login failed. Please check your credentials.",
+          icon: "error",
+        }),
+      );
   };
   return (
     <div>
@@ -101,7 +121,6 @@ const LogIn = () => {
                     {...register("password", {
                       required: "Password is Required",
                       pattern: {
-                        value: /^.{6,}$/,
                         message: "Password should be at least 6 characters",
                       },
                     })}

@@ -4,8 +4,14 @@ import Loader from "../../Shared/Loader";
 import { AuthContext } from "../../Context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const AllContest = () => {
+  Aos.init({
+    duration: 1400,
+    once: true,
+  });
   const { data, isLoading } = useQuery({
     queryKey: ["contests"],
     queryFn: async () => {
@@ -19,6 +25,7 @@ const AllContest = () => {
     <div className="mb-10">
       <div className="relative">
         <img
+          data-aos="zoom-out-left"
           className="w-full h-100 object-cover rounded-xl brightness-65 blur-[0.5px] shadow-2xl shadow-black/60"
           src="https://i.ibb.co/k2j2tzcS/all-Contest-Banner.jpg"
           alt=""

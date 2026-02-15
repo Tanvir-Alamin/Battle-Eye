@@ -10,6 +10,8 @@ import Details from "../Pages/All-Contest/Details-Contest/Details";
 import Success from "../Pages/Payment/Success";
 import ParticipatedContests from "../Pages/ParticipatedContests/ParticipatedContests";
 import ManageContest from "../Pages/Manage-Contest/ManageContest";
+import MyProfile from "../Pages/Profile/MyProfile";
+import AboutUs from "../Pages/AboutUS/AboutUs ";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
         path: "/payment-success",
         element: <Success></Success>,
       },
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
+      },
     ],
   },
   {
@@ -61,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/manage-contests",
         Component: ManageContest,
+      },
+      {
+        path: "/dashboard",
+        Component: MyProfile,
       },
     ],
   },

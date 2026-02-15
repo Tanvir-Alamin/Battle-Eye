@@ -6,7 +6,7 @@ const Banner = () => {
     console.log("Searching for:");
   };
   return (
-    <div className="relative">
+    <div className="relative mb-15">
       <img
         className="rounded-4xl  w-6xl mx-auto"
         src="https://i.ibb.co/5x1g0BXC/banner-Velorent.jpg"

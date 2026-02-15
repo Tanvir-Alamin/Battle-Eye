@@ -6,12 +6,17 @@ import { FaEdit } from "react-icons/fa";
 import { MdCancel, MdDeleteForever } from "react-icons/md";
 import Swal from "sweetalert2";
 import Loader from "../../Shared/Loader";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 import { Controller, useForm } from "react-hook-form";
 import { imageUpload } from "../../Utils";
 import DatePicker from "react-datepicker";
 
 const ManageContest = () => {
+  Aos.init({
+    duration: 1400,
+    once: true,
+  });
   const [uploading, setUploading] = useState(false);
   const [selectedContest, setSelectedContest] = useState(null);
   const {
@@ -159,7 +164,7 @@ const ManageContest = () => {
 
           <tbody>
             {data.map((item, index) => (
-              <tr key={item._id}>
+              <tr data-aos="zoom-in" key={item._id}>
                 <th>{index + 1}</th>
 
                 <td>
@@ -206,7 +211,10 @@ const ManageContest = () => {
         </table>
       </div>
       {open ? (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-4">
+        <div
+          data-aos="zoom-in"
+          className="fixed inset-0 bg-transparent flex items-center justify-center  z-50 p-4"
+        >
           <div className="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fadeIn">
             {/* Close Button */}
             <button

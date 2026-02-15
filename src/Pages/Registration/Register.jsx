@@ -7,7 +7,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 import { IoSkullOutline } from "react-icons/io5";
 import { GiBurningSkull, GiSkullBolt } from "react-icons/gi";
-import { imageUpload } from "../../Utils";
+import { imageUpload, saveOrUpdateUser } from "../../Utils";
 
 const Register = () => {
   const [eye, setEye] = useState(false);
@@ -25,6 +25,7 @@ const Register = () => {
     const { email, password, name, photoURL } = data;
     const image = photoURL[0];
     const useImage = await imageUpload(image);
+
     console.log(useImage);
 
     userWithEmail(email, password)
@@ -36,6 +37,8 @@ const Register = () => {
           text: `Thanks for signing up`,
           icon: "success",
         });
+        saveOrUpdateUser({ name, email, image: useImage });
+
         console.log(result);
 
         setUser(result.user);

@@ -12,7 +12,7 @@ const PopularContest = ({ data }) => {
   return (
     <div>
       <div className="text-3xl mt-10  flex justify-center">Popular Contest</div>
-      <div className="grid mt-10 mx-7 place-items-center grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-6">
+      <div className="grid mb-10 mt-10 mx-7 place-items-center grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-6">
         {sortData?.map((res) => (
           <CardStyle res={res}></CardStyle>
         ))}

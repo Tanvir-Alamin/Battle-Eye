@@ -3,8 +3,14 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import Loader from "../../Shared/Loader";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const ParticipatedContests = () => {
+  Aos.init({
+    duration: 1400,
+    once: true,
+  });
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
 
@@ -38,7 +44,7 @@ const ParticipatedContests = () => {
 
           <tbody>
             {data.map((item, index) => (
-              <tr key={item._id}>
+              <tr data-aos="zoom-in" key={item._id}>
                 <th>{index + 1}</th>
 
                 <td>

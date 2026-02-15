@@ -2,9 +2,12 @@ import React from "react";
 import { Link, Outlet } from "react-router";
 import { CgPlayListAdd } from "react-icons/cg";
 import { SiRepublicofgamers } from "react-icons/si";
-import { FaListOl } from "react-icons/fa";
+import { FaListOl, FaRegUserCircle } from "react-icons/fa";
+import { GiSpikedDragonHead } from "react-icons/gi";
+import useRole from "../Hooks/useRole";
 
 const DashBoardLayOut = () => {
+  const [role] = useRole();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -49,12 +52,12 @@ const DashBoardLayOut = () => {
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
-          <ul className="menu w-full grow">
+          <ul className="menu my-5 w-full grow">
             {/* List item */}
             <li>
               <Link
                 to="/home"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className="is-drawer-close:tooltip my-3 is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
                 {/* Home icon */}
@@ -64,65 +67,62 @@ const DashBoardLayOut = () => {
               </Link>
             </li>
             <li>
-              <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
+              <Link
+                to="/dashboard/user"
+                className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                data-tip="My Profile"
               >
                 {/* Home icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
+                <FaRegUserCircle size={20} />
+                <span className="is-drawer-close:hidden">My Profile</span>
+              </Link>
+            </li>
+            {role === "Gamer" && (
+              <li>
+                <Link
+                  to="/dashboard/add-contest"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Create Contest"
                 >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </button>
-            </li>
-            <li>
-              <Link
-                to="/dashboard/add-contest"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Create Contest"
-              >
-                {/* Home icon */}
-                <CgPlayListAdd size={20} />
-                <span className="is-drawer-close:hidden">Create</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/dashboard/participated-contests"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Participated Contests"
-              >
-                {/* Home icon */}
-                <SiRepublicofgamers size={20} />
-                <span className="is-drawer-close:hidden">Participated</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/dashboard/manage-contests"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Participated Contests"
-              >
-                {/* Home icon */}
-                <FaListOl size={20} />
-                <span className="is-drawer-close:hidden">Manage Contests</span>
-              </Link>
-            </li>
+                  {/* Home icon */}
+                  <CgPlayListAdd size={20} />
+                  <span className="is-drawer-close:hidden">Create</span>
+                </Link>
+              </li>
+            )}
+            {role === "Gamer" && (
+              <li>
+                <Link
+                  to="/dashboard/participated-contests"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Participated Contests"
+                >
+                  {/* Home icon */}
+                  <SiRepublicofgamers size={20} />
+                  <span className="is-drawer-close:hidden">Participated</span>
+                </Link>
+              </li>
+            )}
+            {role === "Gamer" && (
+              <li>
+                <Link
+                  to="/dashboard/manage-contests"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Manage Contests"
+                >
+                  {/* Home icon */}
+                  <FaListOl size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Manage Contests
+                  </span>
+                </Link>
+              </li>
+            )}
 
             {/* List item */}
             <li>
               <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
                 data-tip="Settings"
               >
                 {/* Settings icon */}

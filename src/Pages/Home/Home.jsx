@@ -7,6 +7,8 @@ import AddContest from "../AddContest/AddContest";
 import Loader from "../../Shared/Loader";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import OurGoal from "./HomeComponent/OurGoal";
+import WhyChooseUs from "./HomeComponent/WhyChooseUs";
 
 const Home = () => {
   const { data, isLoading } = useQuery({
@@ -21,7 +23,8 @@ const Home = () => {
     <div className="">
       <Banner></Banner>
       <PopularContest data={data}></PopularContest>
-      <AddContest></AddContest>
+      <OurGoal></OurGoal>
+      <WhyChooseUs></WhyChooseUs>
     </div>
   );
 };

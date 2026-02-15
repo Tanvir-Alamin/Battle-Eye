@@ -5,8 +5,14 @@ import { useParams } from "react-router";
 import Loader from "../../../Shared/Loader";
 import { MdCancel, MdOutlinePayment } from "react-icons/md";
 import { AuthContext } from "../../../Context/AuthContext";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Details = () => {
+  Aos.init({
+    duration: 1400,
+    once: true,
+  });
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
   const { id } = useParams();
@@ -43,11 +49,26 @@ const Details = () => {
       <div className="flex items-center md:flex-row flex-col justify-center">
         <div className="flex md:flex-row flex-col gap-15 justify-center items-center">
           <div>
-            <img
-              className="md:w-max-full w-90 h-90 hover:scale-110 rounded shadow-black shadow-2xl object-cover transition-transform duration-300 group-hover:scale-110"
-              src={data.bannerImage}
-              alt=""
-            />
+            <div className="hover-3d">
+              {/* content */}
+              <figure className="max-w-100 rounded-2xl">
+                <img
+                  className="md:w-max-full w-90 h-90 hover:scale-110 rounded shadow-black shadow-2xl object-cover transition-transform duration-300 group-hover:scale-110"
+                  src={data.bannerImage}
+                  alt=""
+                />
+              </figure>
+              {/* 8 empty divs needed for the 3D effect */}
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+
             {data.creator ? (
               <div className="my-15">
                 <p>Contest Creator : {data.creator}</p>
@@ -74,29 +95,35 @@ const Details = () => {
         </div>
         <div></div>
       </div>
-      <div className="justify-evenly items-center md:flex-row flex-col flex gap-5 my-1">
-        <div className="mb-8 text-white  bg-[#000000] rounded-lg p-3">
+      <div className=" mx-auto w-fit  text-center grid-cols-1 grid md:grid-cols-2  gap-2 my-1">
+        <div className="mb-8 w-75 text-white  bg-[#000000] rounded-lg p-3">
           Entry Fee : ${data.entryFee}
         </div>
-        <div className="bg-[#000000]  text-white  mb-8 rounded-lg p-3">
+        <div className="bg-[#000000]  w-75 text-white  mb-8 rounded-lg p-3">
           Prize Money : ${data.prizeMoney}
         </div>
-        <div className="bg-[#000000]   text-white mb-8 rounded-lg p-3">
+        <div className="bg-[#000000]  w-75  text-white mb-8 rounded-lg p-3">
           Total Participants : {data.participants}
         </div>
+        <div className="bg-[#000000]  w-75  text-white mb-8 rounded-lg p-3">
+          Deadline : {new Date(data.date).toLocaleDateString()}
+        </div>
       </div>
-      <div className="p-10">
-        <button
-          onClick={() => setOpen(true)}
-          className="btn bg-fuchsia-600 text-white"
-        >
-          Open Join Modal
-        </button>
 
+      <button
+        onClick={() => setOpen(true)}
+        className="btn flex hover:skeleton mx-auto items-center bg-fuchsia-600 text-white"
+      >
+        Participate
+      </button>
+      <div className="p-10">
         {/* Modal of payment start here */}
 
         {open ? (
-          <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
+          <div
+            data-aos="zoom-in"
+            className="fixed inset-0 flex items-center justify-center z-50"
+          >
             <div className="bg-white rounded-2xl w-105 overflow-hidden shadow-2xl relative">
               {/* Close Button */}
               <button

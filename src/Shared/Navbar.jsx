@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BiBookAdd } from "react-icons/bi";
 import { CiLogout } from "react-icons/ci";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaTrophy } from "react-icons/fa";
 import { IoHomeOutline, IoLogInOutline } from "react-icons/io5";
 import { SiBookmyshow, SiWikibooks } from "react-icons/si";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import Loader from "./Loader";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { HiUserGroup } from "react-icons/hi";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   const link = (
     <div className="flex md:flex-row  font-bold flex-col gap-2 md:gap-7">
       <NavLink
@@ -20,7 +23,7 @@ const Navbar = () => {
         }
         to="/home"
       >
-        <IoHomeOutline />
+        <IoHomeOutline size={17} />
         Home
       </NavLink>
       <NavLink
@@ -31,7 +34,7 @@ const Navbar = () => {
         }
         to="/all-contests"
       >
-        <IoHomeOutline />
+        <FaTrophy size={17} />
         All Contest
       </NavLink>
       <NavLink
@@ -40,21 +43,10 @@ const Navbar = () => {
             isActive ? "bg-[#7b1fa2]" : ""
           }`
         }
-        to="/all-books"
+        to="/about-us"
       >
-        <SiWikibooks />
-        All Books
-      </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          `flex btn btn-ghost hover:bg-[#7b1fa2] gap-1 items-center ${
-            isActive ? "bg-[#7b1fa2]" : ""
-          }`
-        }
-        to="/dashboard"
-      >
-        <SiWikibooks />
-        Dashboard
+        <HiUserGroup size={17} />
+        About Us
       </NavLink>
     </div>
   );
@@ -100,17 +92,51 @@ const Navbar = () => {
         {/* log out and log in start here */}
 
         <div className="navbar-end ">
-          <NavLink
-            className={({ isActive }) =>
-              `flex btn btn-ghost btn-outline hover:bg-[#7b1fa2] gap-1 items-center ${
-                isActive ? "bg-[#7b1fa2]" : ""
-              }`
-            }
-            to="/login"
-          >
-            <IoLogInOutline />
-            Login
-          </NavLink>
+          {user ? (
+            <div>
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className=" m-1">
+                  <img
+                    className="w-15 rounded-full border-3 border-[#7b1fa2]"
+                    src={user.photoURL}
+                    alt=""
+                  />
+                </div>
+                <ul
+                  tabIndex="-1"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                >
+                  <p className="py-3 border-b-2">Hi {user?.displayName}</p>
+
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        `flex btn btn-ghost hover:bg-[#7b1fa2] gap-1 items-center ${
+                          isActive ? "bg-[#7b1fa2]" : ""
+                        }`
+                      }
+                      to="/dashboard"
+                    >
+                      <LuLayoutDashboard size={17} />
+                      Dashboard
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <NavLink
+              className={({ isActive }) =>
+                `flex btn btn-ghost btn-outline hover:bg-[#7b1fa2] gap-1 items-center ${
+                  isActive ? "bg-[#7b1fa2]" : ""
+                }`
+              }
+              to="/login"
+            >
+              <IoLogInOutline />
+              Login
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

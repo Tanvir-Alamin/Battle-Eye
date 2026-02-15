@@ -59,17 +59,6 @@ const Footer = () => {
               <IoHomeOutline />
               Home
             </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex btn btn-ghost hover:bg-[#7b1fa2] gap-1 items-center ${
-                  isActive ? "bg-[#7b1fa2]" : ""
-                }`
-              }
-              to="/all-books"
-            >
-              <SiWikibooks />
-              All Books
-            </NavLink>
           </div>
         </nav>
       </footer>

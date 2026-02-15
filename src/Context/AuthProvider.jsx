@@ -47,6 +47,9 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
       });
   }, []);
+  const signOutFromAll = () => {
+    return signOut(auth);
+  };
 
   const authInfo = {
     google,
@@ -58,6 +61,7 @@ const AuthProvider = ({ children }) => {
     loading,
     setLoading,
     contests,
+    signOutFromAll,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
