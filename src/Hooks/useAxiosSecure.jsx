@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import useAuth from "./useAuth";
+// import useAuth from "./useAuth";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true,
+  baseURL: "http://localhost:3000",
 });
 
 const useAxiosSecure = () => {
-  const { user, logOut, loading } = useAuth();
+  const { user, logOut, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const useAxiosSecure = () => {
       );
 
       // Add response interceptor
+
       const responseInterceptor = axiosInstance.interceptors.response.use(
         (res) => res,
         (err) => {

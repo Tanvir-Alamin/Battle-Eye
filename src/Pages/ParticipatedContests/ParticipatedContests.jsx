@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import Loader from "../../Shared/Loader";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ParticipatedContests = () => {
+  const axiosSecure = useAxiosSecure();
   Aos.init({
     duration: 1400,
     once: true,
@@ -18,9 +19,7 @@ const ParticipatedContests = () => {
     queryKey: ["contests", email],
     enabled: !!email,
     queryFn: async () => {
-      const result = await axios(
-        `http://localhost:3000/dashboard/participated-contests/${email}`,
-      );
+      const result = await axiosSecure(`/dashboard/participated-contests`);
       return result.data;
     },
   });

@@ -5,6 +5,8 @@ import { SiRepublicofgamers } from "react-icons/si";
 import { FaListOl, FaRegUserCircle } from "react-icons/fa";
 import { GiSpikedDragonHead } from "react-icons/gi";
 import useRole from "../Hooks/useRole";
+import { RiUserSettingsFill } from "react-icons/ri";
+import { IoCreateSharp } from "react-icons/io5";
 
 const DashBoardLayOut = () => {
   const [role] = useRole();
@@ -114,6 +116,34 @@ const DashBoardLayOut = () => {
                   <FaListOl size={20} />
                   <span className="is-drawer-close:hidden">
                     Manage Contests
+                  </span>
+                </Link>
+              </li>
+            )}
+            {role === "Gamer" && (
+              <li>
+                <Link
+                  to="/dashboard/manage-user"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Manage Users"
+                >
+                  {/* Home icon */}
+                  <RiUserSettingsFill size={20} />
+                  <span className="is-drawer-close:hidden">Manage Users</span>
+                </Link>
+              </li>
+            )}
+            {role === "Gamer" && (
+              <li>
+                <Link
+                  to="/dashboard/become-creator"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Become a Creator"
+                >
+                  {/* Home icon */}
+                  <IoCreateSharp size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Become a Creator
                   </span>
                 </Link>
               </li>
