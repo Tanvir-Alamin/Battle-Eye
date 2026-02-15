@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router";
 import { CgPlayListAdd } from "react-icons/cg";
 import { SiRepublicofgamers } from "react-icons/si";
-import { FaListOl, FaRegUserCircle } from "react-icons/fa";
+import { FaListOl, FaRegUserCircle, FaUserTag } from "react-icons/fa";
 import { GiSpikedDragonHead } from "react-icons/gi";
 import useRole from "../Hooks/useRole";
 import { RiUserSettingsFill } from "react-icons/ri";
@@ -70,7 +70,7 @@ const DashBoardLayOut = () => {
             </li>
             <li>
               <Link
-                to="/dashboard/user"
+                to="/dashboard"
                 className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
                 data-tip="My Profile"
               >
@@ -102,6 +102,21 @@ const DashBoardLayOut = () => {
                   {/* Home icon */}
                   <SiRepublicofgamers size={20} />
                   <span className="is-drawer-close:hidden">Participated</span>
+                </Link>
+              </li>
+            )}
+            {role === "Gamer" && (
+              <li>
+                <Link
+                  to="/dashboard/creator-request"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Creator Request"
+                >
+                  {/* Home icon */}
+                  <FaUserTag size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Creator Request
+                  </span>
                 </Link>
               </li>
             )}

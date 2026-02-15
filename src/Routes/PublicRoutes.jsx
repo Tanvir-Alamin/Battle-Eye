@@ -14,6 +14,7 @@ import MyProfile from "../Pages/Profile/MyProfile";
 import AboutUs from "../Pages/AboutUS/AboutUs ";
 import ManageUser from "../Pages/Manage-User/ManageUser";
 import BecomeCreator from "../Pages/Creator/BecomeCreator";
+import CreatorRequest from "../Pages/Creator-Request/CreatorRequest";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/become-creator",
         Component: BecomeCreator,
+      },
+      {
+        path: "/dashboard/creator-request",
+        Component: CreatorRequest,
       },
     ],
   },

@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router";
 import "aos/dist/aos.css";
 import Aos from "aos";
@@ -6,28 +5,29 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
 const BecomeCreator = () => {
+  const axiosSecure = useAxiosSecure();
+
   Aos.init({
     duration: 900,
     once: true,
   });
-  const axiosSecure = useAxiosSecure();
-  //   const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
-  const handleNo = () => {
-    navigate("/dashboard");
-  };
 
   const handleRequest = async () => {
     try {
       await axiosSecure.post("/become-creator");
       toast.success("Request Send, Please wait for admin approval!!");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message);
     }
-    navigate("/dashboard");
   };
 
+  const handleNo = () => {
+    navigate("/dashboard");
+  };
   return (
     <div className="h-screen bg-transparent flex items-center justify-center">
       <div className="fixed inset-0 flex  items-center justify-center z-50">
@@ -61,6 +61,13 @@ const BecomeCreator = () => {
                 <div></div>
               </div>{" "}
             </button>
+            {/* <button
+              onClick={() => toast.success("Test Success")}
+              className="btn"
+            >
+              Test Toast
+            </button> */}
+
             <button onClick={() => handleRequest()}>
               <div className="hover-3d">
                 {/* content */}
