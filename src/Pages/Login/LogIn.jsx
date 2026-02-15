@@ -14,7 +14,7 @@ const LogIn = () => {
   const locate = address || "/home";
 
   const navigate = useNavigate();
-  const { google, user, setUser, mailLogIn } = useContext(AuthContext);
+  const { google, setUser, mailLogIn } = useContext(AuthContext);
   const [eye, setEye] = useState(false);
   const submitGoogle = async (e) => {
     e.preventDefault();
@@ -40,41 +40,46 @@ const LogIn = () => {
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
   console.log(errors);
-
   const loginHandle = async (data) => {
-    const { email, password } = data;
+    try {
+      const result = await mailLogIn(data.email, data.password);
 
-    mailLogIn(email, password)
-      .then((result) => {
-        saveOrUpdateUser({
-          name: user?.displayName,
-          email: user?.email,
-          image: user?.photoURL,
-        });
+      // Update user context
+      setUser(result.user);
 
-        Swal.fire({
-          title: `Login Successfully`,
-          text: `Welcome Back`,
-          icon: "success",
-        });
-        navigate(locate);
-        data.target.reset();
-        setUser(result.user);
-      })
-      .catch(
-        (error) => console.log(error),
+      // Save user to DB
+      await saveOrUpdateUser({
+        name: result.user.displayName || "No Name",
+        email: result.user.email,
+        image: result.user.photoURL,
+      });
 
-        Swal.fire({
-          title: "Error!",
-          text: "Login failed. Please check your credentials.",
-          icon: "error",
-        }),
-      );
+      // Show success
+      Swal.fire({
+        title: "Login Successfully",
+        text: `Welcome Back`,
+        icon: "success",
+      });
+
+      // Reset form using react-hook-form
+      reset();
+
+      // Navigate
+      navigate(locate);
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Error!",
+        text: "Login failed. Please check your credentials.",
+        icon: "error",
+      });
+    }
   };
+
   return (
     <div>
       <div>

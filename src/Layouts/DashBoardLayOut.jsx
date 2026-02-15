@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Outlet } from "react-router";
 import { CgPlayListAdd } from "react-icons/cg";
 import { SiRepublicofgamers } from "react-icons/si";
-import { FaListOl, FaRegUserCircle, FaUserTag } from "react-icons/fa";
+import { FaEdit, FaListOl, FaRegUserCircle, FaUserTag } from "react-icons/fa";
 import { GiSpikedDragonHead } from "react-icons/gi";
 import useRole from "../Hooks/useRole";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { IoCreateSharp } from "react-icons/io5";
+import { AuthContext } from "../Context/AuthContext";
+import Loader from "../Shared/Loader";
+import { MdAdminPanelSettings } from "react-icons/md";
+import PleaseLoginLoader from "../Shared/PleaseLoginLoader";
 
 const DashBoardLayOut = () => {
+  const { user } = useContext(AuthContext);
   const [role] = useRole();
+  if (!user) return <PleaseLoginLoader></PleaseLoginLoader>;
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -38,7 +44,7 @@ const DashBoardLayOut = () => {
             </svg>
           </label>
           <Link to="/home" className="btn py-6 btn-ghost text-xl">
-            <img className="w-12 rounded-xl" src="/logo.png" alt="" />
+            <img className="w-10 rounded-xl" src="/logo.png" alt="" />
             BATTLE EYE
           </Link>
         </nav>
@@ -79,7 +85,7 @@ const DashBoardLayOut = () => {
                 <span className="is-drawer-close:hidden">My Profile</span>
               </Link>
             </li>
-            {role === "Gamer" && (
+            {role === "Creator" && (
               <li>
                 <Link
                   to="/dashboard/add-contest"
@@ -105,7 +111,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
               <li>
                 <Link
                   to="/dashboard/creator-request"
@@ -113,14 +119,29 @@ const DashBoardLayOut = () => {
                   data-tip="Creator Request"
                 >
                   {/* Home icon */}
-                  <FaUserTag size={20} />
+                  <MdAdminPanelSettings size={20} />
                   <span className="is-drawer-close:hidden">
                     Creator Request
                   </span>
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
+              <li>
+                <Link
+                  to="/dashboard/manage-contests/all"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Creator Request"
+                >
+                  {/* Home icon */}
+                  <FaEdit size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Edit All Contest
+                  </span>
+                </Link>
+              </li>
+            )}
+            {role === "Creator" && (
               <li>
                 <Link
                   to="/dashboard/manage-contests"
@@ -135,7 +156,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
               <li>
                 <Link
                   to="/dashboard/manage-user"
@@ -165,30 +186,6 @@ const DashBoardLayOut = () => {
             )}
 
             {/* List item */}
-            <li>
-              <button
-                className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
-                data-tip="Settings"
-              >
-                {/* Settings icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M20 7h-9"></path>
-                  <path d="M14 17H5"></path>
-                  <circle cx="17" cy="17" r="3"></circle>
-                  <circle cx="7" cy="7" r="3"></circle>
-                </svg>
-                <span className="is-drawer-close:hidden">Settings</span>
-              </button>
-            </li>
           </ul>
         </div>
       </div>

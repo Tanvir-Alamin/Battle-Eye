@@ -1,53 +1,54 @@
-import { useContext } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import axios from "axios";
+// import useAuth from "./useAuth";
+import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
+const axiosInstance = axios.create({
+  baseURL: "https://battle-eye-server.vercel.app",
+  withCredentials: true,
+});
+
 const useAxiosSecure = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
-  });
+  useEffect(() => {
+    if (!loading && user?.accessToken) {
+      // Add request interceptor
+      const requestInterceptor = axiosInstance.interceptors.request.use(
+        (config) => {
+          config.headers.Authorization = `Bearer ${user.accessToken}`;
+          return config;
+        },
+      );
 
-  // Request interceptor
-  axiosInstance.interceptors.request.use((config) => {
-    if (user?.accessToken) {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
+      // Add response interceptor
+
+      const responseInterceptor = axiosInstance.interceptors.response.use(
+        (res) => res,
+        (err) => {
+          if (err?.response?.status === 401 || err?.response?.status === 403) {
+            logOut()
+              .then(() => {
+                console.log("Logged out successfully.");
+              })
+              .catch(console.error);
+            navigate("/login");
+          }
+          return Promise.reject(err);
+        },
+      );
+
+      // Cleanup to prevent multiple interceptors on re-renders
+      return () => {
+        axiosInstance.interceptors.request.eject(requestInterceptor);
+        axiosInstance.interceptors.response.eject(responseInterceptor);
+      };
     }
-    return config;
-  });
-
-  // Response interceptor
-  // axiosInstance.interceptors.response.use(
-  //   (res) => res,
-  //   async (err) => {
-  //     if (err?.response?.status === 401 || err?.response?.status === 403) {
-  //       await logOut();
-  //       window.locatio.href = "/login"; // safer than navigate inside interceptor
-  //     }
-  //     return Promise.reject(err);
-  //   },
-  // );
-
-  axiosInstance.interceptors.response.use(
-    (res) => res,
-    async (err) => {
-      const originalRequest = err.config;
-
-      // Only logout if the request was to /dashboard/... or any protected route
-      if (
-        (err?.response?.status === 401 || err?.response?.status === 403) &&
-        originalRequest?.url?.includes("/dashboard")
-      ) {
-        // // await logOut();
-        // window.location.href = "/login";
-      }
-
-      return Promise.reject(err);
-    },
-  );
+  }, [user, loading, logOut, navigate]);
 
   return axiosInstance;
 };
-
 export default useAxiosSecure;

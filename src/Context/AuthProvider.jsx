@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    axios("http://localhost:3000/all-contests")
+    axios("https://battle-eye-server.vercel.app/all-contests")
       .then((res) => {
         setContests(res.data);
       })

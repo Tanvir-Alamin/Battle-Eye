@@ -12,7 +12,7 @@ import { Controller, useForm } from "react-hook-form";
 import { imageUpload } from "../../Utils";
 import DatePicker from "react-datepicker";
 
-const ManageContest = () => {
+const AdminAllContest = () => {
   Aos.init({
     duration: 1400,
     once: true,
@@ -134,15 +134,15 @@ const ManageContest = () => {
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
   const { data = [], isLoading } = useQuery({
-    queryKey: ["contests", email],
-    enabled: !!email,
+    queryKey: ["admin", email],
     queryFn: async () => {
       const result = await axios(
-        `https://battle-eye-server.vercel.app/dashboard/manage-contests/${email}`,
+        `https://battle-eye-server.vercel.app/all-contests`,
       );
       return result.data;
     },
   });
+
   if (loading || uploading || isLoading || isPending) return <Loader></Loader>;
 
   return (
@@ -342,4 +342,4 @@ const ManageContest = () => {
   );
 };
 
-export default ManageContest;
+export default AdminAllContest;

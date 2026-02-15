@@ -15,8 +15,16 @@ import AboutUs from "../Pages/AboutUS/AboutUs ";
 import ManageUser from "../Pages/Manage-User/ManageUser";
 import BecomeCreator from "../Pages/Creator/BecomeCreator";
 import CreatorRequest from "../Pages/Creator-Request/CreatorRequest";
+import AdminAllContest from "../Pages/AdminContest/AdminAllContest";
+import ErrorPage from "../Shared/ErrorPage";
+import PrivateRoutes from "./PrivateRoutes";
+import PrivateForUser from "./PrivateForUser";
 
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
+  },
   {
     path: "/",
     Component: MainLayout,
@@ -35,15 +43,28 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <LogIn></LogIn>,
+        element: (
+          <PrivateForUser>
+            <LogIn></LogIn>
+          </PrivateForUser>
+        ),
       },
       {
         path: "register",
-        element: <Register></Register>,
+        element: (
+          <PrivateForUser>
+            <Register></Register>
+          </PrivateForUser>
+        ),
       },
       {
         path: "/details/:id",
-        element: <Details></Details>,
+
+        element: (
+          <PrivateRoutes>
+            <Details></Details>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/payment-success",
@@ -86,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/creator-request",
         Component: CreatorRequest,
+      },
+      {
+        path: "/dashboard/manage-contests/all",
+        Component: AdminAllContest,
       },
     ],
   },

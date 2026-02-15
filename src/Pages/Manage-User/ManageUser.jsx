@@ -6,9 +6,52 @@ import Aos from "aos";
 import { VscWorkspaceUnknown } from "react-icons/vsc";
 import "aos/dist/aos.css";
 import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import Loader from "../../Shared/Loader";
+import { toast } from "react-toastify";
 
 const ManageUser = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+  const { register, handleSubmit, reset } = useForm();
+  useEffect(() => {
+    if (selectedUser) {
+      reset({
+        role: selectedUser.role,
+      });
+    }
+  }, [selectedUser, reset]);
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (contestData) =>
+      await axios.patch(
+        `https://battle-eye-server.vercel.app/update/user-role/${selectedUser._id}`,
+        contestData,
+      ),
+    onSuccess: () => {
+      toast.success("Updated Successfully");
+      window.location.reload();
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+    retry: 2,
+  });
   const [open, setOpen] = useState(false);
+  const onSubmit = async (data) => {
+    const role = data.newRole;
+
+    const contestData = {
+      role,
+    };
+    try {
+      await mutateAsync(contestData);
+      reset();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   Aos.init({
     duration: 900,
@@ -19,7 +62,7 @@ const ManageUser = () => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/dashboard/manage-user",
+          "https://battle-eye-server.vercel.app/dashboard/manage-user",
         );
         setUser(res.data);
       } catch (error) {
@@ -31,6 +74,7 @@ const ManageUser = () => {
   }, []);
 
   console.log(user);
+  if (isPending) return <Loader></Loader>;
 
   return (
     <div>
@@ -72,7 +116,11 @@ const ManageUser = () => {
 
                 <td>{new Date(item.created_at).toLocaleDateString()}</td>
                 <td>
-                  <Link onClick={() => setOpen(true)}>
+                  <Link
+                    onClick={() => {
+                      (setOpen(true), setSelectedUser(item));
+                    }}
+                  >
                     <div className="hover-3d">
                       {/* content */}
                       <figure className="max-w-100 rounded-2xl">
@@ -124,63 +172,67 @@ const ManageUser = () => {
               </div>
 
               {/* Content */}
-              <div className="p-6 text-center">
-                <select
-                  defaultValue="Pick a color"
-                  className="select my-3 appearance-none"
-                >
-                  <option disabled={true}>Select a role</option>
-                  <option>Admin</option>
-                  <option>Creator</option>
-                  <option>Gamer</option>
-                </select>
-                <p className="text-gray-500 text-sm mb-4">Select User Role</p>
-                <div className="text-start"> </div>
-              </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="p-6 text-center">
+                  {" "}
+                  <select
+                    defaultValue=""
+                    className="select my-3 appearance-none"
+                    {...register("newRole", { required: true })}
+                  >
+                    <option disabled={true}>Select a role</option>
+                    <option>Admin</option>
+                    <option>Creator</option>
+                    <option>Gamer</option>
+                  </select>
+                  <p className="text-gray-500 text-sm mb-4">Select User Role</p>
+                  <div className="text-start"> </div>
+                </div>
 
-              {/* Footer Buttons */}
-              <div className="flex justify-center gap-3 p-6 border-t">
-                <button onClick={() => setOpen(false)}>
-                  <div className="hover-3d">
-                    {/* content */}
-                    <figure className="max-w-100 rounded-2xl">
-                      <span className="btn bg-slate-600 px-5 text-white btn-outline flex-1 rounded-full">
-                        {" "}
-                        Cancel
-                      </span>
-                    </figure>
-                    {/* 8 empty divs needed for the 3D effect */}
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>{" "}
-                </button>
-                <button onClick={() => "handlePaymnet"()}>
-                  <div className="hover-3d">
-                    {/* content */}
-                    <figure className="max-w-100 rounded-2xl">
-                      <span className="btn bg-green-600  text-white flex-1 rounded-full">
-                        {" "}
-                        Set Role
-                      </span>
-                    </figure>
-                    {/* 8 empty divs needed for the 3D effect */}
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </button>
-              </div>
+                {/* Footer Buttons */}
+                <div className="flex justify-center gap-3 p-6 border-t">
+                  <button onClick={() => setOpen(false)}>
+                    <div className="hover-3d">
+                      {/* content */}
+                      <figure className="max-w-100 rounded-2xl">
+                        <span className="btn bg-slate-600 px-5 text-white btn-outline flex-1 rounded-full">
+                          {" "}
+                          Cancel
+                        </span>
+                      </figure>
+                      {/* 8 empty divs needed for the 3D effect */}
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>{" "}
+                  </button>
+                  <button type="submit" onClick={() => "handlePaymnet"()}>
+                    <div className="hover-3d">
+                      {/* content */}
+                      <figure className="max-w-100 rounded-2xl">
+                        <span className="btn bg-green-600  text-white flex-1 rounded-full">
+                          {" "}
+                          Set Role
+                        </span>
+                      </figure>
+                      {/* 8 empty divs needed for the 3D effect */}
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         ) : (

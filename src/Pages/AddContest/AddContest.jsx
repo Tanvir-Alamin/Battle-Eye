@@ -18,7 +18,10 @@ const AddContest = () => {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (addContest) =>
-      await axios.post("http://localhost:3000/all-contests", addContest),
+      await axios.post(
+        "https://battle-eye-server.vercel.app/all-contests",
+        addContest,
+      ),
     onSuccess: () => {
       Swal.fire({
         title: "Your Contest Successfully Added",

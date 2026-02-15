@@ -9,6 +9,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import Loader from "../../Shared/Loader";
 import { AuthContext } from "../../Context/AuthContext";
+import axios from "axios";
 
 const CreatorRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,8 +23,10 @@ const CreatorRequest = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axiosSecure("/dashboard/creator-request");
-        setUser(res.data);
+        const res = await axios.get(
+          "https://battle-eye-server.vercel.app/dashboard/creator-request",
+        );
+        setUser(Array.isArray(res.data) ? res.data : []);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -65,13 +68,13 @@ const CreatorRequest = () => {
           </thead>
 
           <tbody>
-            {user.map((item, index) => (
-              <tr data-aos="zoom-in" key={item._id}>
+            {user?.map((item, index) => (
+              <tr data-aos="zoom-in" key={item?._id}>
                 <th>{index + 1}</th>
                 <td>{item.email}</td>
                 <td>
                   <button
-                    onClick={() => handleUpdate(item.email)}
+                    onClick={() => handleUpdate(item?.email)}
                     className="bg-green-500 px-2 py-1 rounded-3xl text-white hover:bg-green-600"
                   >
                     Make Creator

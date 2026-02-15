@@ -9,21 +9,25 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const Details = () => {
+  const { user, loading } = useContext(AuthContext);
   Aos.init({
     duration: 1400,
     once: true,
   });
   const [open, setOpen] = useState(false);
-  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const { data, isLoading } = useQuery({
     queryKey: ["contests", id],
     queryFn: async () => {
-      const result = await axios(`http://localhost:3000/details/${id}`);
+      const result = await axios(
+        `https://battle-eye-server.vercel.app/details/${id}`,
+      );
       return result.data;
     },
   });
-  //   console.log(data.image);
+  if (!user) return <Loader></Loader>;
+  if (!data) return <Loader></Loader>;
+  if (loading) return <Loader></Loader>;
 
   if (isLoading) return <Loader></Loader>;
   const handlePaymnet = async () => {
@@ -39,11 +43,12 @@ const Details = () => {
     };
     5;
     const result = await axios.post(
-      "http://localhost:3000/payment-checkout-session",
+      "https://battle-eye-server.vercel.app/payment-checkout-session",
       paymentInfo,
     );
     window.location.replace(result.data.url);
   };
+
   return (
     <div className="my-20">
       <div className="flex items-center md:flex-row flex-col justify-center">
