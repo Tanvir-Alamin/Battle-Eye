@@ -15,9 +15,7 @@ const Home = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["contests"],
     queryFn: async () => {
-      const result = await axios(
-        "https://battle-eye-server.vercel.app/all-contests",
-      );
+      const result = await axios("http://localhost:3000/all-contests");
       return result.data;
     },
   });

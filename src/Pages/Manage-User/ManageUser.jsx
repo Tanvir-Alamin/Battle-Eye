@@ -26,7 +26,7 @@ const ManageUser = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (contestData) =>
       await axios.patch(
-        `https://battle-eye-server.vercel.app/update/user-role/${selectedUser._id}`,
+        `http://localhost:3000/update/user-role/${selectedUser._id}`,
         contestData,
       ),
     onSuccess: () => {
@@ -62,7 +62,7 @@ const ManageUser = () => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          "https://battle-eye-server.vercel.app/dashboard/manage-user",
+          "http://localhost:3000/dashboard/manage-user",
         );
         setUser(res.data);
       } catch (error) {

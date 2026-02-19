@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import Loader from "../../../Shared/Loader";
 import { MdCancel, MdOutlinePayment } from "react-icons/md";
@@ -10,26 +10,24 @@ import "aos/dist/aos.css";
 
 const Details = () => {
   const { user, loading } = useContext(AuthContext);
-  Aos.init({
-    duration: 1400,
-    once: true,
-  });
   const [open, setOpen] = useState(false);
   const { id } = useParams();
+
+  useEffect(() => {
+    Aos.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   const { data, isLoading } = useQuery({
     queryKey: ["contests", id],
     queryFn: async () => {
-      const result = await axios(
-        `https://battle-eye-server.vercel.app/details/${id}`,
-      );
+      const result = await axios(`http://localhost:3000/details/${id}`);
       return result.data;
     },
   });
-  if (!user) return <Loader></Loader>;
-  if (!data) return <Loader></Loader>;
-  if (loading) return <Loader></Loader>;
 
-  if (isLoading) return <Loader></Loader>;
   const handlePaymnet = async () => {
     const paymentInfo = {
       contestId: data._id,
@@ -41,151 +39,146 @@ const Details = () => {
       buyerName: user.displayName,
       owner: data.creator,
     };
-    5;
+
     const result = await axios.post(
-      "https://battle-eye-server.vercel.app/payment-checkout-session",
+      "http://localhost:3000/payment-checkout-session",
       paymentInfo,
     );
+
     window.location.replace(result.data.url);
   };
 
+  if (loading || isLoading) return <Loader />;
+
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
   return (
-    <div className="my-20">
-      <div className="flex items-center md:flex-row flex-col justify-center">
-        <div className="flex md:flex-row flex-col gap-15 justify-center items-center">
-          <div>
-            <div className="hover-3d">
-              {/* content */}
-              <figure className="max-w-100 rounded-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-pink-300 via-gray-900 to-black text-white py-20 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Main Card */}
+        <div
+          data-aos="fade-up"
+          className="grid md:grid-cols-2 gap-10 bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/10"
+        >
+          {/* Image Section */}
+          <div className="relative group">
+            <img
+              src={data.bannerImage}
+              className="rounded-2xl w-full h-full object-cover transition duration-500 group-hover:scale-105"
+              alt=""
+            />
+            <div className="absolute inset-0 bg-black/40 rounded-2xl"></div>
+          </div>
+
+          {/* Content Section */}
+          <div className="flex flex-col justify-center">
+            <h1 className="text-4xl font-bold mb-5 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+              {data.contestName}
+            </h1>
+
+            <p className="text-lg mb-3">
+              <span className="font-semibold text-pink-400">Mode:</span>{" "}
+              {data.mode}
+            </p>
+
+            <p className="text-gray-300 mb-6 leading-relaxed">
+              {data.description}
+            </p>
+
+            {data.creator && (
+              <div className="flex items-center gap-3 mb-5">
                 <img
-                  className="md:w-max-full w-90 h-90 hover:scale-110 rounded shadow-black shadow-2xl object-cover transition-transform duration-300 group-hover:scale-110"
-                  src={data.bannerImage}
+                  src={data.image}
+                  className="w-12 h-12 rounded-full border-2 border-fuchsia-500"
                   alt=""
                 />
-              </figure>
-              {/* 8 empty divs needed for the 3D effect */}
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-
-            {data.creator ? (
-              <div className="my-15">
-                <p>Contest Creator : {data.creator}</p>
-                <img className="w-10" src={data.image} alt="" />
+                <p className="text-sm text-gray-300">
+                  Created by{" "}
+                  <span className="font-semibold">{data.creator}</span>
+                </p>
               </div>
-            ) : (
-              ""
             )}
           </div>
-          <div className="flex my-5 flex-col">
-            <div className="text-2xl py-3 mb-3 text-white md:text-5xl  font-bold">
-              {data.contestName}
+        </div>
+
+        {/* Info Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mt-12">
+          {[
+            { title: "Entry Fee", value: `$${data.entryFee}` },
+            { title: "Prize Pool", value: `$${data.prizeMoney}` },
+            { title: "Participants", value: data.participants },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:scale-105 transition"
+            >
+              <p className="text-gray-400 text-sm">{item.title}</p>
+              <h2 className="text-2xl font-bold mt-2">{item.value}</h2>
             </div>
+          ))}
+        </div>
 
-            <div className="flex mb-5 flex-col gap-10 ">
-              <div className="font-semibold  text-white  font-mono text-lg">
-                Mode : {data.mode}
-              </div>
-              <div className="italic md:w-100  text-white font-light font-serif">
-                {data.description}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div></div>
-      </div>
-      <div className=" mx-auto w-fit  text-center grid-cols-1 grid md:grid-cols-2  gap-2 my-1">
-        <div className="mb-8 w-75 text-white  bg-[#000000] rounded-lg p-3">
-          Entry Fee : ${data.entryFee}
-        </div>
-        <div className="bg-[#000000]  w-75 text-white  mb-8 rounded-lg p-3">
-          Prize Money : ${data.prizeMoney}
-        </div>
-        <div className="bg-[#000000]  w-75  text-white mb-8 rounded-lg p-3">
-          Total Participants : {data.participants}
-        </div>
-        <div className="bg-[#000000]  w-75  text-white mb-8 rounded-lg p-3">
-          Deadline : {new Date(data.date).toLocaleDateString()}
-        </div>
-      </div>
-
-      <button
-        onClick={() => setOpen(true)}
-        className="btn flex hover:skeleton mx-auto items-center bg-fuchsia-600 text-white"
-      >
-        Participate
-      </button>
-      <div className="p-10">
-        {/* Modal of payment start here */}
-
-        {open ? (
-          <div
-            data-aos="zoom-in"
-            className="fixed inset-0 flex items-center justify-center z-50"
+        {/* Participate Button */}
+        <div className="text-center mt-12">
+          <button
+            onClick={() => setOpen(true)}
+            className="px-10 py-3 rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:scale-105 transition shadow-lg font-semibold"
           >
-            <div className="bg-white rounded-2xl w-105 overflow-hidden shadow-2xl relative">
-              {/* Close Button */}
+            Participate Now
+          </button>
+        </div>
+      </div>
+
+      {/* Payment Modal */}
+      {open && (
+        <div
+          data-aos="zoom-in"
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+        >
+          <div className="bg-white text-black rounded-3xl w-[400px] p-8 relative shadow-2xl">
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4"
+            >
+              <MdCancel size={22} />
+            </button>
+
+            <div className="text-center mb-6">
+              <div className="bg-green-600 w-16 h-16 flex items-center justify-center rounded-full mx-auto mb-4">
+                <MdOutlinePayment size={28} color="white" />
+              </div>
+
+              <h2 className="text-xl font-bold">Confirm Payment</h2>
+              <p className="text-sm text-gray-500">
+                Review details before proceeding
+              </p>
+            </div>
+
+            <div className="space-y-2 mb-6 text-sm">
+              <p>Game: {data.contestName}</p>
+              <p>Mode: {data.mode}</p>
+              <p>Entry Fee: ${data.entryFee}</p>
+            </div>
+
+            <div className="flex gap-3">
               <button
                 onClick={() => setOpen(false)}
-                className="absolute top-3 right-3 bg-white rounded-full p-1 shadow-md"
+                className="flex-1 py-2 border rounded-full"
               >
-                <MdCancel size={20} />
+                Cancel
               </button>
 
-              {/* Top Gradient Section */}
-              <div className="h-40 bg-linear-to-b from-green-900 to-white flex justify-center items-center">
-                <div className="bg-green-600 p-6 rounded-xl shadow-lg">
-                  <span className="text-white text-3xl">
-                    <MdOutlinePayment></MdOutlinePayment>
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 text-center">
-                <h2 className="text-xl text-gray-800 font-semibold mb-1">
-                  Review Purchase Details
-                </h2>
-
-                <p className="text-gray-500 text-sm mb-4">
-                  Confirm your payment to Join the Contest{" "}
-                </p>
-                <div className="text-start">
-                  {" "}
-                  <p>Game Name : {data.contestName}</p>
-                  <p>Mode : {data.mode}</p>
-                  <p>Entry fee : ${data.entryFee}</p>
-                </div>
-              </div>
-
-              {/* Footer Buttons */}
-              <div className="flex gap-3 p-6 border-t">
-                <button
-                  onClick={() => setOpen(false)}
-                  className="btn btn-outline flex-1 rounded-full"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  onClick={() => handlePaymnet()}
-                  className="btn bg-green-600 hover:bg-green-700 text-white flex-1 rounded-full"
-                >
-                  Proceed
-                </button>
-              </div>
+              <button
+                onClick={handlePaymnet}
+                className="flex-1 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition"
+              >
+                Proceed
+              </button>
             </div>
           </div>
-        ) : (
-          ""
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

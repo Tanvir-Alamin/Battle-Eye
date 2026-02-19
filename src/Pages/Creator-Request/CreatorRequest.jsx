@@ -24,7 +24,7 @@ const CreatorRequest = () => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          "https://battle-eye-server.vercel.app/dashboard/creator-request",
+          "http://localhost:3000/dashboard/creator-request",
         );
         setUser(Array.isArray(res.data) ? res.data : []);
       } catch (error) {

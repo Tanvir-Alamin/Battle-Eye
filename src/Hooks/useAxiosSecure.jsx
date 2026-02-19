@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 const axiosInstance = axios.create({
-  baseURL: "https://battle-eye-server.vercel.app",
+  baseURL: "http://localhost:3000",
   withCredentials: true,
 });
 

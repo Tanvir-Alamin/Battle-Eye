@@ -10,7 +10,7 @@ const Success = () => {
   const navigate = useNavigate();
 
   if (sessionId) {
-    axios.post(`https://battle-eye-server.vercel.app/payment-success`, {
+    axios.post(`http://localhost:3000/payment-success`, {
       sessionId,
     });
   }

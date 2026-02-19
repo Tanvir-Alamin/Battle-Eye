@@ -38,14 +38,11 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    axios("https://battle-eye-server.vercel.app/all-contests")
+    axios("http://localhost:3000/all-contests")
       .then((res) => {
         setContests(res.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((err) => console.log(err));
   }, []);
   const signOutFromAll = () => {
     return signOut(auth);

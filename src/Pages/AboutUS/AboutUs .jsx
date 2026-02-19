@@ -105,7 +105,7 @@ const AboutUs = () => {
         <p className="text-gray-300 mb-8">
           Join our community and take your esports journey to the next level.
         </p>
-        <a href="#" className="hover-3d my-12 mx-2 cursor-pointer">
+        <a href="/all-contests" className="hover-3d my-12 mx-2 cursor-pointer">
           {/* content */}
           <div className="card w-96 bg-black text-white bg-[radial-gradient(circle_at_bottom_left,#ffffff04_35%,transparent_36%),radial-gradient(circle_at_top_right,#ffffff04_35%,transparent_36%)] bg-size-[4.95em_4.95em]">
             <Link

@@ -41,7 +41,7 @@ const ManageContest = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (contestData) =>
       await axios.patch(
-        `https://battle-eye-server.vercel.app/update/${selectedContest._id}`,
+        `http://localhost:3000/update/${selectedContest._id}`,
         contestData,
       ),
     onSuccess: () => {
@@ -71,7 +71,7 @@ const ManageContest = () => {
     if (!confirmDelete.isConfirmed) return;
 
     const res = await axios.delete(
-      `https://battle-eye-server.vercel.app/delete-contest/${id}`,
+      `http://localhost:3000/delete-contest/${id}`,
     );
 
     if (res.data.success) {
@@ -138,7 +138,7 @@ const ManageContest = () => {
     enabled: !!email,
     queryFn: async () => {
       const result = await axios(
-        `https://battle-eye-server.vercel.app/dashboard/manage-contests/${email}`,
+        `http://localhost:3000/dashboard/manage-contests/${email}`,
       );
       return result.data;
     },

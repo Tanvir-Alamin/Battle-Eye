@@ -14,9 +14,6 @@ export const imageUpload = async (image) => {
 // save or update user
 
 export const saveOrUpdateUser = async (userData) => {
-  const { data } = await axios.post(
-    "https://battle-eye-server.vercel.app/user",
-    userData,
-  );
+  const { data } = await axios.post("http://localhost:3000/user", userData);
   return data;
 };

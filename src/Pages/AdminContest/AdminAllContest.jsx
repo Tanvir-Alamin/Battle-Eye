@@ -41,7 +41,7 @@ const AdminAllContest = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (contestData) =>
       await axios.patch(
-        `https://battle-eye-server.vercel.app/update/${selectedContest._id}`,
+        `http://localhost:3000/update/${selectedContest._id}`,
         contestData,
       ),
     onSuccess: () => {
@@ -71,7 +71,7 @@ const AdminAllContest = () => {
     if (!confirmDelete.isConfirmed) return;
 
     const res = await axios.delete(
-      `https://battle-eye-server.vercel.app/delete-contest/${id}`,
+      `http://localhost:3000/delete-contest/${id}`,
     );
 
     if (res.data.success) {
@@ -136,9 +136,7 @@ const AdminAllContest = () => {
   const { data = [], isLoading } = useQuery({
     queryKey: ["admin", email],
     queryFn: async () => {
-      const result = await axios(
-        `https://battle-eye-server.vercel.app/all-contests`,
-      );
+      const result = await axios(`http://localhost:3000/all-contests`);
       return result.data;
     },
   });

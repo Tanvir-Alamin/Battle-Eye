@@ -95,7 +95,7 @@ const Navbar = () => {
           {user ? (
             <div>
               <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className=" m-1">
+                <div tabIndex={0} role="button" className=" m-0">
                   <img
                     className="w-15 h-15 rounded-full border-3 border-[#7b1fa2]"
                     src={user.photoURL}

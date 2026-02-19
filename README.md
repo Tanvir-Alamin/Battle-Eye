@@ -9,7 +9,7 @@
 
 - 🌐 Live Site: https://battle-eye.netlify.app
 - 🖥️ Server Repository: https://github.com/Tanvir-Alamin/Battle-Eye-Server
-- 🖥️ Server Live Site: https://battle-eye-server.vercel.app
+- 🖥️ Server Live Site: http://localhost:3000
 
 ---
 
