@@ -97,7 +97,7 @@ const MyProfile = () => {
       </div>
 
       {/* Buttons */}
-      <div className="flex  justify-center gap-4 mt-4">
+      <div className="flex md:flex-row flex-col justify-center gap-4 mt-4">
         <button
           onClick={editor}
           className="btn flex items-center gap-1 bg-[#7b1fa2] rounded-xl px-3 py-1 font-semibold"
@@ -116,14 +116,14 @@ const MyProfile = () => {
       {update && (
         <div
           data-aos="zoom-in-down"
-          className="fixed inset-0 flex  items-center justify-center bg-transparent z-50 p-4"
+          className="fixed inset-0 flex items-center justify-center z-50 p-4"
         >
           {" "}
-          <div className="bg-gray-900 px-10 rounded-2xl w-105 flex flex-col items-center justify-center max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fadeIn p-6">
+          <div className="px-10 rounded-2xl w-105 bg-gray-200 flex flex-col items-center justify-center max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fadeIn p-6">
             {/* Close Button */}
             <button
               onClick={() => setUpdate(false)}
-              className="absolute top-3 right-3 bg-white rounded-full p-1 shadow-md"
+              className="absolute top-3 right-3 rounded-full p-1 shadow-md"
             >
               <MdCancel size={20} />
             </button>
@@ -134,9 +134,7 @@ const MyProfile = () => {
             </div>
 
             <form onSubmit={handleUpdate} className="flex flex-col gap-4">
-              <label className="label text-lg text-gray-200 font-semibold">
-                New Name *
-              </label>
+              <label className="label text-lg  font-semibold">New Name *</label>
               <input
                 name="name"
                 type="text"
@@ -144,7 +142,7 @@ const MyProfile = () => {
                 placeholder="Enter your full name"
               />
 
-              <label className="label text-lg text-gray-200 font-semibold">
+              <label className="label text-lg  font-semibold">
                 Email (cannot be changed)
               </label>
               <input
@@ -156,7 +154,7 @@ const MyProfile = () => {
                 placeholder={user.email}
               />
 
-              <label className="label text-lg text-gray-200 font-semibold">
+              <label className="label text-lg font-semibold">
                 New Photo URL
               </label>
               <input

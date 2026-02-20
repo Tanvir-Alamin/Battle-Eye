@@ -5,7 +5,7 @@ import { SiRepublicofgamers } from "react-icons/si";
 import { FaEdit, FaListOl, FaRegUserCircle, FaUserTag } from "react-icons/fa";
 import { GiSpikedDragonHead } from "react-icons/gi";
 import useRole from "../Hooks/useRole";
-import { RiUserSettingsFill } from "react-icons/ri";
+import { RiShieldCheckLine, RiUserSettingsFill } from "react-icons/ri";
 import { IoCreateSharp } from "react-icons/io5";
 import { AuthContext } from "../Context/AuthContext";
 import Loader from "../Shared/Loader";
@@ -94,7 +94,7 @@ const DashBoardLayOut = () => {
                 >
                   {/* Home icon */}
                   <CgPlayListAdd size={20} />
-                  <span className="is-drawer-close:hidden">Create</span>
+                  <span className="is-drawer-close:hidden">Create Contest</span>
                 </Link>
               </li>
             )}
@@ -129,14 +129,29 @@ const DashBoardLayOut = () => {
             {role === "Gamer" && (
               <li>
                 <Link
+                  to="/dashboard/approve-contests"
+                  className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
+                  data-tip="Approve Contests"
+                >
+                  {/* Home icon */}
+                  <RiShieldCheckLine size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Approve Contests
+                  </span>
+                </Link>
+              </li>
+            )}
+            {role === "Gamer" && (
+              <li>
+                <Link
                   to="/dashboard/manage-contests/all"
                   className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
-                  data-tip="Creator Request"
+                  data-tip="Edit All Contests"
                 >
                   {/* Home icon */}
                   <FaEdit size={20} />
                   <span className="is-drawer-close:hidden">
-                    Edit All Contest
+                    Edit All Contests
                   </span>
                 </Link>
               </li>

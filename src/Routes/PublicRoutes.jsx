@@ -19,6 +19,7 @@ import AdminAllContest from "../Pages/AdminContest/AdminAllContest";
 import ErrorPage from "../Shared/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import PrivateForUser from "./PrivateForUser";
+import ApproveContest from "../Pages/Approvd-Contest/ApproveContest";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/manage-contests/all",
         Component: AdminAllContest,
+      },
+      {
+        path: "/dashboard/approve-contests",
+        Component: ApproveContest,
       },
     ],
   },

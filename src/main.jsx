@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <RouterProvider router={router}></RouterProvider>
       </AuthProvider>
-      <ToastContainer />
+      <ToastContainer theme="colored" />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </StrictMode>,

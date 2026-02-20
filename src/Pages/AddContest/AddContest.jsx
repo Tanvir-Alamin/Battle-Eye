@@ -36,7 +36,6 @@ const AddContest = () => {
   const {
     register,
     handleSubmit,
-    control,
     reset,
 
     formState: { errors },
@@ -60,6 +59,8 @@ const AddContest = () => {
     const contestData = {
       contestName,
       bannerImage,
+      participants: 0,
+      status: "pending",
       entryFee: Number(entryFee),
       prizeMoney: Number(prizeMoney),
       taskDetails,
@@ -135,20 +136,6 @@ const AddContest = () => {
               placeholder="Description"
               {...register("description", { required: true })}
             />
-            <Controller
-              {...register("date", { required: true })}
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <DatePicker
-                  placeholderText="Select Date"
-                  selected={field.value}
-                  onChange={(date) => field.onChange(date)}
-                  className="input input-bordered w-full"
-                />
-              )}
-            />
-            {errors.date && <p className="text-red-500">Date is required</p>}
             <input
               className="input input-bordered w-full mb-3"
               value={user?.email}
