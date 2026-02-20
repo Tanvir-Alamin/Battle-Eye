@@ -145,7 +145,7 @@ const AdminAllContest = () => {
 
   return (
     <div>
-      <h1 className="m-7 text-xl font-bold">My Created Contests :</h1>
+      <h1 className="m-7 text-xl font-bold">All Approved Contests :</h1>
 
       <div className="overflow-x-auto">
         <table className="table w-full">
@@ -211,9 +211,9 @@ const AdminAllContest = () => {
       {open ? (
         <div
           data-aos="zoom-in"
-          className="fixed inset-0 bg-transparent flex items-center justify-center  z-50 p-4"
+          className="fixed  inset-0 flex items-center justify-center  z-50 p-4"
         >
-          <div className="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fadeIn">
+          <div className=" rounded-2xl bg-base-100 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fadeIn">
             {/* Close Button */}
             <button
               onClick={() => setOpen(false)}

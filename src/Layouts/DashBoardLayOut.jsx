@@ -5,11 +5,13 @@ import { SiRepublicofgamers } from "react-icons/si";
 import { FaEdit, FaListOl, FaRegUserCircle, FaUserTag } from "react-icons/fa";
 import { GiSpikedDragonHead } from "react-icons/gi";
 import useRole from "../Hooks/useRole";
+import { FaHeartCircleCheck } from "react-icons/fa6";
+
 import { RiShieldCheckLine, RiUserSettingsFill } from "react-icons/ri";
 import { IoCreateSharp } from "react-icons/io5";
 import { AuthContext } from "../Context/AuthContext";
 import Loader from "../Shared/Loader";
-import { MdAdminPanelSettings } from "react-icons/md";
+import { MdAdminPanelSettings, MdPendingActions } from "react-icons/md";
 import PleaseLoginLoader from "../Shared/PleaseLoginLoader";
 
 const DashBoardLayOut = () => {
@@ -131,12 +133,12 @@ const DashBoardLayOut = () => {
                 <Link
                   to="/dashboard/approve-contests"
                   className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
-                  data-tip="Approve Contests"
+                  data-tip="Pending Contests"
                 >
                   {/* Home icon */}
-                  <RiShieldCheckLine size={20} />
+                  <MdPendingActions size={20} />
                   <span className="is-drawer-close:hidden">
-                    Approve Contests
+                    Pending Contests
                   </span>
                 </Link>
               </li>
@@ -146,12 +148,12 @@ const DashBoardLayOut = () => {
                 <Link
                   to="/dashboard/manage-contests/all"
                   className="is-drawer-close:tooltip  my-3 is-drawer-close:tooltip-right"
-                  data-tip="Edit All Contests"
+                  data-tip="Approved Contests"
                 >
                   {/* Home icon */}
-                  <FaEdit size={20} />
+                  <FaHeartCircleCheck size={20} />
                   <span className="is-drawer-close:hidden">
-                    Edit All Contests
+                    Approved Contests
                   </span>
                 </Link>
               </li>

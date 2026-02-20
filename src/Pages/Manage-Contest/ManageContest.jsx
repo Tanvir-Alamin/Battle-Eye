@@ -157,7 +157,7 @@ const ManageContest = () => {
               <th>Name</th>
               <th>Entry Fee</th>
               <th>Prize Money</th>
-              <th>Deadline</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -185,7 +185,9 @@ const ManageContest = () => {
                   <span className="">${item.prizeMoney}</span>
                 </td>
 
-                <td>{new Date(item.date).toLocaleDateString()}</td>
+                <td>
+                  <span className="">{item.status}</span>
+                </td>
                 <td>
                   <span
                     onClick={() => {

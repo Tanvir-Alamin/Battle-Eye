@@ -85,7 +85,7 @@ const ApproveContest = () => {
 
   return (
     <div>
-      <h1 className="m-7 text-xl font-bold">My Created Contests :</h1>
+      <h1 className="m-7 text-xl font-bold">Pending Contests :</h1>
 
       <div className="overflow-x-auto">
         <table className="table w-full">
