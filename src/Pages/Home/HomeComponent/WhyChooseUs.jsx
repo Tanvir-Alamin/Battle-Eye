@@ -11,7 +11,7 @@ const WhyChooseUs = () => {
   return (
     <section
       data-aos="zoom-in"
-      className="bg-black my-15 rounded-3xl text-white py-20 px-6"
+      className=" my-15 rounded-3xl text-white py-20 px-6"
     >
       <div className="max-w-6xl mx-auto text-center">
         {/* Heading */}
