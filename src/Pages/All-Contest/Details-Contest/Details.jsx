@@ -16,6 +16,7 @@ const Details = () => {
   const { id } = useParams();
   const [message, setMessage] = useState("");
   const axiosSecure = useAxiosSecure();
+
   const handleSubmitMessage = () => {
     if (!message.trim()) return alert("Please enter a message!");
     // Here you can send it to your server or log it
