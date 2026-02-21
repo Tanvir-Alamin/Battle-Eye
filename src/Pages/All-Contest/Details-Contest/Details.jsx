@@ -8,6 +8,7 @@ import { AuthContext } from "../../../Context/AuthContext";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { HiOutlineCheckCircle } from "react-icons/hi";
 
 const Details = () => {
   const { user, loading } = useContext(AuthContext);
@@ -73,7 +74,7 @@ const Details = () => {
 
     fetchData();
   }, []);
-  console.log(joinded);
+  console.log(allParticipants);
 
   const { data, isLoading } = useQuery({
     queryKey: ["contests", id],
@@ -278,23 +279,27 @@ const Details = () => {
             </thead>
 
             <tbody>
-              {allParticipants.map((item, index) => (
-                <tr data-aos="zoom-in" key={item._id}>
+              {allParticipants?.map((item, index) => (
+                <tr
+                  className="bg-gray-600"
+                  data-aos="zoom-in"
+                  key={item._id}
+                >
                   <th>{index + 1}</th>
 
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
-                          <img src={item.bannerImage} alt={item.contestName} />
+                          <img src={item.image} alt={item.name} />
                         </div>
                       </div>
-                      <div className="font-bold">{item.contestName}</div>
+                      <div className="font-bold">{item.name}</div>
                     </div>
                   </td>
 
                   <td>
-                    <span className="">${item.entryFee}</span>
+                    <span className="">{item.email}</span>
                   </td>
                   <td>
                     <span className="">${item.prizeMoney}</span>
