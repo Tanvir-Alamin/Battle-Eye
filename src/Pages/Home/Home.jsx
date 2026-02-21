@@ -10,6 +10,7 @@ import axios from "axios";
 import OurGoal from "./HomeComponent/OurGoal";
 import WhyChooseUs from "./HomeComponent/WhyChooseUs";
 import ErrorPage from "../../Shared/ErrorPage";
+import WinnerSection from "./HomeComponent/WinnerSection ";
 
 const Home = () => {
   const { data, isLoading } = useQuery({
@@ -24,6 +25,7 @@ const Home = () => {
     <div className="">
       <Banner></Banner>
       <PopularContest data={data}></PopularContest>
+      <WinnerSection></WinnerSection>
       <OurGoal></OurGoal>
       <WhyChooseUs></WhyChooseUs>
     </div>

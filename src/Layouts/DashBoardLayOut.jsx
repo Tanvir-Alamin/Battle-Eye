@@ -87,7 +87,7 @@ const DashBoardLayOut = () => {
                 <span className="is-drawer-close:hidden">My Profile</span>
               </Link>
             </li>
-            {role === "Gamer" && (
+            {(role === "Creator" || role === "Admin") && (
               <li>
                 <Link
                   to="/dashboard/add-contest"
@@ -113,7 +113,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
               <li>
                 <Link
                   to="/dashboard/creator-request"
@@ -128,7 +128,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
               <li>
                 <Link
                   to="/dashboard/approve-contests"
@@ -143,7 +143,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
               <li>
                 <Link
                   to="/dashboard/manage-contests/all"
@@ -158,7 +158,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Creator" && (
               <li>
                 <Link
                   to="/dashboard/manage-contests"
@@ -173,7 +173,7 @@ const DashBoardLayOut = () => {
                 </Link>
               </li>
             )}
-            {role === "Gamer" && (
+            {role === "Admin" && (
               <li>
                 <Link
                   to="/dashboard/manage-user"
