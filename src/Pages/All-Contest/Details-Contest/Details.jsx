@@ -22,7 +22,7 @@ const Details = () => {
   const axiosSecure = useAxiosSecure();
 
   const handleSubmitMessage = async () => {
-    if (!message.trim()) return alert("Please enter a message!");
+    if (!message.trim()) return toast.error("Please enter your task!");
     // Here you can send it to your server or log i
 
     const gamerInfo = {
@@ -51,8 +51,10 @@ const Details = () => {
       try {
         const result = await axiosSecure(
           `http://localhost:3000/joined-contests/${id}`,
-        );
-        setJoined(result.data);
+        ).then((res) => {
+          setJoined(res.data);
+          console.log(result);
+        });
       } catch (error) {
         console.error(error);
       }
@@ -86,6 +88,7 @@ const Details = () => {
       return result.data;
     },
   });
+  console.log(data?.winner);
 
   const handlePaymnet = async () => {
     const paymentInfo = {
@@ -112,15 +115,23 @@ const Details = () => {
   if (!user) {
     return <Navigate to="/" replace />;
   }
-  const handleWinner = async (email) => {
-    const winner = { email, id, reward };
+  const handleWinner = async (item) => {
+    const email = item.email;
+    const id = item.contestId;
+    const image = item.image;
+    const name = item.name;
+
+    const winner = { email, id, reward, image, name };
+    console.log(winner);
 
     await axiosSecure
       .patch("http://localhost:3000/participants-contests", winner)
       .then((res) => {
         console.log(res);
-
         toast.success("Winner Selected Successfully");
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
   return (
@@ -164,8 +175,22 @@ const Details = () => {
                   alt=""
                 />
                 <p className="text-sm text-gray-300">
-                  Created by{" "}
+                  Created by -{" "}
                   <span className="font-semibold">{data.creator}</span>
+                </p>
+              </div>
+            )}
+            <span className="border-2 mb-5"></span>
+            {data?.winner && (
+              <div className="flex items-center gap-3 mb-5">
+                <img
+                  src={data?.winner?.image}
+                  className="w-12 h-12 rounded-full border-2 border-fuchsia-500"
+                  alt=""
+                />
+                <p className="text-sm text-gray-300">
+                  Contest Winner -{" "}
+                  <span className="font-semibold">{data?.winner?.name}</span>
                 </p>
               </div>
             )}
@@ -189,156 +214,174 @@ const Details = () => {
           ))}
         </div>
 
-        {/* Participate Button */}
-        <div className="text-center mt-12">
-          {joinded?.contestId !== id ? (
-            <button
-              onClick={() => setOpen(true)}
-              className="px-10 py-3 rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:scale-105 transition shadow-lg font-semibold"
-            >
-              Participate Now
-            </button>
-          ) : (
-            <p className="bg-pink-300 py-1 rounded-3xl text-base-00">
-              Successfully Participated
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Payment Modal */}
-      {open && (
-        <div
-          data-aos="zoom-in"
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-        >
-          <div className="bg-white text-black rounded-3xl w-[400px] p-8 relative shadow-2xl">
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute top-4 right-4"
-            >
-              <MdCancel size={22} />
-            </button>
-
-            <div className="text-center mb-6">
-              <div className="bg-green-600 w-16 h-16 flex items-center justify-center rounded-full mx-auto mb-4">
-                <MdOutlinePayment size={28} color="white" />
-              </div>
-
-              <h2 className="text-xl font-bold">Confirm Payment</h2>
-              <p className="text-sm text-gray-500">
-                Review details before proceeding
-              </p>
-            </div>
-
-            <div className="space-y-2 mb-6 text-sm">
-              <p>Game: {data.contestName}</p>
-              <p>Mode: {data.mode}</p>
-              <p>Entry Fee: ${data.entryFee}</p>
-            </div>
-
-            <div className="flex gap-3">
+        {/* Payment Modal */}
+        {open && (
+          <div
+            data-aos="zoom-in"
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+          >
+            <div className="bg-white text-black rounded-3xl w-[400px] p-8 relative shadow-2xl">
               <button
                 onClick={() => setOpen(false)}
-                className="flex-1 py-2 border rounded-full"
+                className="absolute top-4 right-4"
               >
-                Cancel
+                <MdCancel size={22} />
               </button>
 
-              <button
-                onClick={handlePaymnet}
-                className="flex-1 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition"
-              >
-                Proceed
-              </button>
+              <div className="text-center mb-6">
+                <div className="bg-green-600 w-16 h-16 flex items-center justify-center rounded-full mx-auto mb-4">
+                  <MdOutlinePayment size={28} color="white" />
+                </div>
+
+                <h2 className="text-xl font-bold">Confirm Payment</h2>
+                <p className="text-sm text-gray-500">
+                  Review details before proceeding
+                </p>
+              </div>
+
+              <div className="space-y-2 mb-6 text-sm">
+                <p>Game: {data.contestName}</p>
+                <p>Mode: {data.mode}</p>
+                <p>Entry Fee: ${data.entryFee}</p>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="flex-1 py-2 border rounded-full"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  onClick={handlePaymnet}
+                  className="flex-1 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition"
+                >
+                  Proceed
+                </button>
+              </div>
             </div>
           </div>
+        )}
+      </div>
+      {data?.winner ? (
+        ""
+      ) : (
+        <div>
+          {" "}
+          {/* Participate Button */}
+          <div className="text-center mt-12">
+            {joinded?.contestId !== id ? (
+              <button
+                onClick={() => setOpen(true)}
+                className="px-10 py-3 rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:scale-105 transition shadow-lg font-semibold"
+              >
+                Participate Now
+              </button>
+            ) : (
+              <p className="bg-pink-300 py-1 rounded-3xl text-base-00">
+                Successfully Participated
+              </p>
+            )}
+          </div>
+          {/* Participate Button */}
+          {joinded?.contestId === id ? (
+            <div className="text-center mt-12">
+              <h1>Submit Your Task Here</h1>
+              {/* Textarea and Submit Button */}
+              <div className="mt-6 max-w-md mx-auto flex flex-col gap-3">
+                <textarea
+                  placeholder="Enter your task details..."
+                  className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black"
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+                <button
+                  onClick={handleSubmitMessage}
+                  className="px-6 py-2 rounded-full bg-purple-600 text-white hover:bg-purple-700 transition"
+                >
+                  Submit Task
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {user?.email === data?.email ? (
+            <div>
+              <h1 className="m-7 text-xl font-bold">Submitted Contests :</h1>
+
+              <div className="overflow-x-auto rounded-4xl bg-base-100">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Task Submitted</th>
+                      <th>Award</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {allParticipants?.map((item, index) => (
+                      <tr
+                        className="bg-gray-600"
+                        data-aos="zoom-in"
+                        key={item._id}
+                      >
+                        <th>{index + 1}</th>
+
+                        <td>
+                          <div className="flex items-center gap-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle h-12 w-12">
+                                <img src={item.image} alt={item.name} />
+                              </div>
+                            </div>
+                            <div className="font-bold">{item.name}</div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <span className="">{item.email}</span>
+                        </td>
+                        <td>
+                          <span className="">{item.submit}</span>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            onChange={(e) => setReward(e.target.value)}
+                            placeholder="Give Award"
+                            className="input text-blue-600"
+                          />
+                        </td>
+
+                        <td>
+                          <span
+                            onClick={() => {
+                              handleWinner(item);
+                            }}
+                            className="flex w-30 mb-0.5 btn btn-sm gap-1 items-center"
+                          >
+                            <HiOutlineCheckCircle size={17} />
+                            Approve
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       )}
-      {/* Participate Button */}
-      <div className="text-center mt-12">
-        <h1>Submit Your Task Here</h1>
-        {/* Textarea and Submit Button */}
-        <div className="mt-6 max-w-md mx-auto flex flex-col gap-3">
-          <textarea
-            placeholder="Enter your task details..."
-            className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black"
-            rows={4}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button
-            onClick={handleSubmitMessage}
-            className="px-6 py-2 rounded-full bg-purple-600 text-white hover:bg-purple-700 transition"
-          >
-            Submit Task
-          </button>
-        </div>
-      </div>
-      <div>
-        <h1 className="m-7 text-xl font-bold">Submitted Contests :</h1>
-
-        <div className="overflow-x-auto rounded-4xl bg-base-100">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Task Submitted</th>
-                <th>Award</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {allParticipants?.map((item, index) => (
-                <tr className="bg-gray-600" data-aos="zoom-in" key={item._id}>
-                  <th>{index + 1}</th>
-
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img src={item.image} alt={item.name} />
-                        </div>
-                      </div>
-                      <div className="font-bold">{item.name}</div>
-                    </div>
-                  </td>
-
-                  <td>
-                    <span className="">{item.email}</span>
-                  </td>
-                  <td>
-                    <span className="">{item.submit}</span>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      onChange={(e) => setReward(e.target.value)}
-                      placeholder="Give Award"
-                      className="input text-blue-600"
-                    />
-                  </td>
-
-                  <td>
-                    <span
-                      onClick={() => {
-                        handleWinner(item.email);
-                      }}
-                      className="flex w-30 mb-0.5 btn btn-sm gap-1 items-center"
-                    >
-                      <HiOutlineCheckCircle size={17} />
-                      Approve
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
   );
 };
