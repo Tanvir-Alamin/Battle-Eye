@@ -12,6 +12,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const Details = () => {
   const { user, loading } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [allParticipants, setAllParticipants] = useState();
   const [joinded, setJoined] = useState();
   const { id } = useParams();
   const [message, setMessage] = useState("");
@@ -23,6 +24,7 @@ const Details = () => {
 
     const gamerInfo = {
       name: user.displayName,
+      email: user.email,
       image: user.photoURL,
       contestId: id,
       submit: message,
@@ -48,6 +50,22 @@ const Details = () => {
           `http://localhost:3000/joined-contests/${id}`,
         );
         setJoined(result.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(joinded);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axiosSecure(
+          `http://localhost:3000/participants-contests`,
+        );
+        setAllParticipants(result.data);
       } catch (error) {
         console.error(error);
       }
@@ -241,6 +259,65 @@ const Details = () => {
           >
             Submit Task
           </button>
+        </div>
+      </div>
+      <div>
+        <h1 className="m-7 text-xl font-bold">Pending Contests :</h1>
+
+        <div className="overflow-x-auto">
+          <table className="table w-full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Entry Fee</th>
+                <th>Prize Money</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {allParticipants.map((item, index) => (
+                <tr data-aos="zoom-in" key={item._id}>
+                  <th>{index + 1}</th>
+
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle h-12 w-12">
+                          <img src={item.bannerImage} alt={item.contestName} />
+                        </div>
+                      </div>
+                      <div className="font-bold">{item.contestName}</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <span className="">${item.entryFee}</span>
+                  </td>
+                  <td>
+                    <span className="">${item.prizeMoney}</span>
+                  </td>
+                  <td>
+                    <span className="">{item.status}</span>
+                  </td>
+
+                  <td>
+                    <span
+                      onClick={() => {
+                        handleSubmitMessage(item.email);
+                      }}
+                      className="flex w-30 mb-0.5 btn btn-sm gap-1 items-center"
+                    >
+                      <HiOutlineCheckCircle size={17} />
+                      Approve
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
