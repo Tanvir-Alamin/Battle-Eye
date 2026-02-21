@@ -17,9 +17,21 @@ const Details = () => {
   const [message, setMessage] = useState("");
   const axiosSecure = useAxiosSecure();
 
-  const handleSubmitMessage = () => {
+  const handleSubmitMessage = async () => {
     if (!message.trim()) return alert("Please enter a message!");
-    // Here you can send it to your server or log it
+    // Here you can send it to your server or log i
+
+    const gamerInfo = {
+      name: user.displayName,
+      image: user.photoURL,
+      contestId: id,
+      submit: message,
+      award: "Not Declared",
+    };
+    await axiosSecure.post(
+      `http://localhost:3000/submit-task/${id}`,
+      gamerInfo,
+    );
     console.log("Submitted message:", message);
     setMessage(""); // Clear textarea after submit
   };
