@@ -66,7 +66,7 @@ const Details = () => {
     const fetchData = async () => {
       try {
         const result = await axiosSecure(
-          `http://localhost:3000/participants-contests`,
+          `http://localhost:3000/participants-contests/${id}`,
         );
         setAllParticipants(result.data);
       } catch (error) {
@@ -114,6 +114,7 @@ const Details = () => {
   }
   const handleWinner = async (email) => {
     const winner = { email, id, reward };
+
     await axiosSecure
       .patch("http://localhost:3000/participants-contests", winner)
       .then((res) => {
