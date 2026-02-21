@@ -154,7 +154,9 @@ const Details = () => {
               Participate Now
             </button>
           ) : (
-            ""
+            <p className="bg-pink-300 py-1 rounded-3xl text-base-00">
+              Successfully Participated
+            </p>
           )}
         </div>
       </div>
@@ -210,10 +212,11 @@ const Details = () => {
       )}
       {/* Participate Button */}
       <div className="text-center mt-12">
+        <h1>Submit Your Task Here</h1>
         {/* Textarea and Submit Button */}
         <div className="mt-6 max-w-md mx-auto flex flex-col gap-3">
           <textarea
-            placeholder="Enter your message..."
+            placeholder="Enter your task details..."
             className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black"
             rows={4}
             value={message}
