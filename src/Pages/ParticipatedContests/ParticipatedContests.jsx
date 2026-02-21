@@ -38,6 +38,7 @@ const ParticipatedContests = () => {
               <th>Name</th>
               <th>Payment Status</th>
               <th>Joined</th>
+              <th>Status</th>
             </tr>
           </thead>
 

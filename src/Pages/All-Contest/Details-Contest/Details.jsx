@@ -7,23 +7,48 @@ import { MdCancel, MdOutlinePayment } from "react-icons/md";
 import { AuthContext } from "../../../Context/AuthContext";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Details = () => {
   const { user, loading } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [joinded, setJoined] = useState();
   const { id } = useParams();
-
+  const [message, setMessage] = useState("");
+  const axiosSecure = useAxiosSecure();
+  const handleSubmitMessage = () => {
+    if (!message.trim()) return alert("Please enter a message!");
+    // Here you can send it to your server or log it
+    console.log("Submitted message:", message);
+    setMessage(""); // Clear textarea after submit
+  };
   useEffect(() => {
     Aos.init({
       duration: 1000,
       once: true,
     });
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axiosSecure(
+          `http://localhost:3000/joined-contests/${id}`,
+        );
+        setJoined(result.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(joinded);
 
   const { data, isLoading } = useQuery({
     queryKey: ["contests", id],
     queryFn: async () => {
       const result = await axios(`http://localhost:3000/details/${id}`);
+
       return result.data;
     },
   });
@@ -121,12 +146,16 @@ const Details = () => {
 
         {/* Participate Button */}
         <div className="text-center mt-12">
-          <button
-            onClick={() => setOpen(true)}
-            className="px-10 py-3 rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:scale-105 transition shadow-lg font-semibold"
-          >
-            Participate Now
-          </button>
+          {joinded?.contestId !== id ? (
+            <button
+              onClick={() => setOpen(true)}
+              className="px-10 py-3 rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:scale-105 transition shadow-lg font-semibold"
+            >
+              Participate Now
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
 
@@ -179,6 +208,25 @@ const Details = () => {
           </div>
         </div>
       )}
+      {/* Participate Button */}
+      <div className="text-center mt-12">
+        {/* Textarea and Submit Button */}
+        <div className="mt-6 max-w-md mx-auto flex flex-col gap-3">
+          <textarea
+            placeholder="Enter your message..."
+            className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-black"
+            rows={4}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button
+            onClick={handleSubmitMessage}
+            className="px-6 py-2 rounded-full bg-purple-600 text-white hover:bg-purple-700 transition"
+          >
+            Submit Task
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
