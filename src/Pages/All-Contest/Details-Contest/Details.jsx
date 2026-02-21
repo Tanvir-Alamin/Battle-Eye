@@ -9,6 +9,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { HiOutlineCheckCircle } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const Details = () => {
   const { user, loading } = useContext(AuthContext);
@@ -110,6 +111,11 @@ const Details = () => {
   if (!user) {
     return <Navigate to="/" replace />;
   }
+  const handleWinner = async (email) => {
+    await axiosSecure
+      .patch("http://localhost:3000/participants-contests", email)
+      .then(toast.success("Winner Selected Successfully"));
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-300 via-gray-900 to-black text-white py-20 px-4">
       <div className="max-w-6xl mx-auto">
@@ -263,28 +269,24 @@ const Details = () => {
         </div>
       </div>
       <div>
-        <h1 className="m-7 text-xl font-bold">Pending Contests :</h1>
+        <h1 className="m-7 text-xl font-bold">Submitted Contests :</h1>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-4xl bg-base-100">
           <table className="table w-full">
             <thead>
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Entry Fee</th>
-                <th>Prize Money</th>
-                <th>Status</th>
+                <th>Email</th>
+                <th>Task Submitted</th>
+                <th>Award</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
               {allParticipants?.map((item, index) => (
-                <tr
-                  className="bg-gray-600"
-                  data-aos="zoom-in"
-                  key={item._id}
-                >
+                <tr className="bg-gray-600" data-aos="zoom-in" key={item._id}>
                   <th>{index + 1}</th>
 
                   <td>
@@ -302,16 +304,20 @@ const Details = () => {
                     <span className="">{item.email}</span>
                   </td>
                   <td>
-                    <span className="">${item.prizeMoney}</span>
+                    <span className="">{item.submit}</span>
                   </td>
                   <td>
-                    <span className="">{item.status}</span>
+                    <input
+                      type="text"
+                      placeholder="Give Award"
+                      className="input text-blue-600"
+                    />
                   </td>
 
                   <td>
                     <span
                       onClick={() => {
-                        handleSubmitMessage(item.email);
+                        handleWinner(item.email);
                       }}
                       className="flex w-30 mb-0.5 btn btn-sm gap-1 items-center"
                     >
