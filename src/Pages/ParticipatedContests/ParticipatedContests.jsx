@@ -63,6 +63,9 @@ const ParticipatedContests = () => {
                 </td>
 
                 <td>{new Date(item.time).toLocaleDateString()}</td>
+                <td>
+                  <span className="badge border-4">{item.status}</span>
+                </td>
               </tr>
             ))}
           </tbody>
