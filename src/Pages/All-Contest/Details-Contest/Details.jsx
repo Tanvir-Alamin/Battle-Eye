@@ -18,6 +18,7 @@ const Details = () => {
   const [joinded, setJoined] = useState();
   const { id } = useParams();
   const [message, setMessage] = useState("");
+  const [reward, setReward] = useState("");
   const axiosSecure = useAxiosSecure();
 
   const handleSubmitMessage = async () => {
@@ -112,9 +113,14 @@ const Details = () => {
     return <Navigate to="/" replace />;
   }
   const handleWinner = async (email) => {
+    const winner = { email, id, reward };
     await axiosSecure
-      .patch("http://localhost:3000/participants-contests", email)
-      .then(toast.success("Winner Selected Successfully"));
+      .patch("http://localhost:3000/participants-contests", winner)
+      .then((res) => {
+        console.log(res);
+
+        toast.success("Winner Selected Successfully");
+      });
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-300 via-gray-900 to-black text-white py-20 px-4">
@@ -309,6 +315,7 @@ const Details = () => {
                   <td>
                     <input
                       type="text"
+                      onChange={(e) => setReward(e.target.value)}
                       placeholder="Give Award"
                       className="input text-blue-600"
                     />
